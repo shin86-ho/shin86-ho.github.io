@@ -1,0 +1,352 @@
+/* Custom Font (خط مخصص) */
+@font-face {
+    font-family: 'NRT-Reg';
+    src: url('uploaded:NRT-REG.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-family: 'NRT-Reg', sans-serif; /* Default font for English and as a fallback */
+    background-color: #f8f8f8; /* Soft white background for the entire site */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+/* Specific font for Arabic and Kurdish content (خط محدد للمحتوى العربي والكردي) */
+.arabic-font, .kurdish-font {
+    font-family: 'Noto Kufi Arabic', 'NRT-Reg', sans-serif;
+}
+.container {
+    max-width: 1200px; /* Increased width to match reference design */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.header-bg {
+    background-color: #ffffff; /* Clean white header */
+    color: #333;
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-link {
+    color: #555;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+.nav-link:hover {
+    color: #e53e3a; /* Red on hover */
+    background-color: #f0f0f0;
+}
+.btn-primary {
+    background-color: #e53e3a; /* Primary red button */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+.btn-primary:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}
+.hero-section {
+    background-color: #ffffff; /* Hero section with clean white background */
+    color: #333;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+.hero-image {
+    border-radius: 1.5rem; /* Larger rounded corners for images */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+.quality-card {
+    background-color: white; /* Service cards are white */
+    border-radius: 1rem; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Deeper, softer shadow */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    padding: 1.5rem;
+}
+.quality-card:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); /* Larger shadow on hover */
+}
+.contact-info a {
+    color: #e53e3a; /* Contact links in new primary red */
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.contact-info a:hover {
+    color: #cc0000;
+    text-decoration: underline;
+}
+/* Custom styles for logo image (أنماط مخصصة لشعار الصورة) */
+.logo-img {
+    max-height: 50px; /* Adjusted height to fit new design */
+    width: auto;
+}
+/* Language selection overlay styles (أنماط تراكب اختيار اللغة) */
+#language-selection-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Very dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    flex-direction: column;
+}
+.language-box {
+    background-color: white;
+    padding: 3.5rem; /* Larger padding for the modal */
+    border-radius: 1.5rem; /* More rounded corners */
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); /* Deeper shadow for the modal */
+}
+.language-button {
+    background-color: #e53e3a; /* Language selection buttons in primary red */
+    color: white;
+    padding: 1.2rem 2.5rem; /* Larger padding for buttons */
+    margin: 1.2rem; /* Larger margin between buttons */
+    border-radius: 0.75rem; /* More rounded corners */
+    font-size: 1.6rem; /* Larger font size */
+    font-weight: 600; /* Bolder font */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 220px; /* Fixed width for buttons */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.language-button:hover {
+    background-color: #cc0000; /* Darker red on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+/* The '.hidden' class is essential for hiding elements (فئة "مخفي" ضرورية لإخفاء العناصر) */
+.hidden {
+    display: none !important; /* Added !important to ensure override of other styles */
+}
+
+/* Styles for icons in service cards (أنماط الأيقونات في بطاقات الخدمة) */
+.service-icon {
+    color: #e53e3a; /* Icons in prominent red */
+    font-size: 3rem; /* Larger icon size */
+}
+
+/* Specific styles for new sections (أنماط محددة للأقسام الجديدة) */
+.section-heading {
+    font-size: 2.5rem; /* h2 equivalent */
+    font-weight: 800; /* Extra bold */
+    color: #333;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+.section-subheading {
+    font-size: 1.25rem; /* text-xl equivalent */
+    color: #666;
+    margin-bottom: 2.5rem;
+}
+
+/* Style for image grid in hero section based on reference (نمط شبكة الصور في قسم البطل بناءً على المرجع) */
+.hero-images-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+.hero-images-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.hero-images-grid img:first-child {
+    grid-column: 1 / span 2; /* Make the first image span both columns */
+}
+
+/* Feature section styling (e.g., "Custom printed boxes") (نمط قسم الميزات (على سبيل المثال، "صناديق مطبوعة مخصصة")) */
+.feature-card {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 2rem;
+    text-align: center;
+}
+.feature-card img {
+    max-height: 150px; /* Ensure images fit */
+    width: auto;
+    margin: 0 auto 1rem auto;
+    border-radius: 0.5rem;
+}
+
+/* Product card styling (نمط بطاقة المنتج) */
+.product-card {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+}
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin-bottom: 1rem;
+}
+.product-tag {
+    background-color: #e53e3a;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+/* Icons with text section (e.g., "What do we mean by...") (أيقونات مع قسم نص (على سبيل المثال، "ماذا نقصد بـ...")) */
+.icon-text-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.icon-text-item i {
+    font-size: 2rem;
+    color: #e53e3a;
+}
+
+/* Video / Large image section (قسم الفيديو / الصورة الكبيرة) */
+.video-section {
+    background-color: #1a202c; /* Dark background for visual section */
+    color: white;
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(26, 32, 44, 0.9), rgba(26, 32, 44, 0.5));
+    z-index: 1;
+}
+.video-content {
+    position: relative;
+    z-index: 2;
+}
+.video-placeholder {
+    background-color: #333;
+    height: 400px; /* Placeholder height */
+    width: 100%;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Map section (قسم الخريطة) */
+.map-section {
+    padding: 5rem 0;
+    background-color: #f8f8f8;
+    text-align: center;
+}
+.map-container {
+    width: 100%;
+    height: 400px;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+}
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Footer section (قسم التذييل) */
+footer {
+    background-color: #1a202c; /* Dark footer background */
+    color: white;
+    padding: 4rem 0;
+}
+footer a {
+    color: #bbb;
+    transition: color 0.2s ease;
+}
+footer a:hover {
+    color: #e53e3a;
+}
+.footer-logo {
+    max-height: 80px;
+    width: auto;
+    margin-bottom: 1rem;
+}
+.social-icon-box {
+    background-color: #e53e3a;
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+.social-icon-box:hover {
+    background-color: #cc0000;
+}
+.social-icon-box .social-icon {
+    font-size: 1.5rem;
+    margin-right: 0; /* Override default margin */
+    color: white;
+}
+.footer-heading {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 1.125rem; /* text-lg */
+}
+/* Custom styles for client logos section (أنماط مخصصة لقسم شعارات العملاء) */
+.client-logo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
+    gap: 2rem;
+    justify-items: center;
+    align-items: center;
+    margin-top: 2.5rem;
+}
+
+.client-logo-grid img {
+    max-width: 120px; /* Increased max-width for better visibility */
+    height: auto;
+    filter: grayscale(100%); /* Make logos grayscale */
+    opacity: 0.6; /* Reduce opacity */
+    transition: all 0.3s ease;
+}
+
+.client-logo-grid img:hover {
+    filter: grayscale(0%); /* Full color on hover */
+    opacity: 1; /* Full opacity on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+.service-list-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+.service-list-item i {
+    font-size: 1.5rem; /* Icon size */
+    color: #e53e3a; /* Icon color */
+}
