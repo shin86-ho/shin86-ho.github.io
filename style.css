@@ -350,3 +350,53 @@ footer a:hover {
     font-size: 1.5rem; /* Icon size */
     color: #e53e3a; /* Icon color */
 }
+
+
+/* 🌐 Floating Language Button */
+.language-float {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: white;
+    color: #333;
+    border-radius: 2rem;
+    padding: 0.75rem 1.25rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 2000;
+    font-weight: 600;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.language-float:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+.language-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 2100;
+    animation: fadeIn 0.3s ease;
+}
+.language-dropdown button {
+    background: none;
+    border: none;
+    padding: 0.75rem 1rem;
+    text-align: right;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.language-dropdown button:hover {
+    background-color: #f0f0f0;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
