@@ -76,19 +76,19 @@ function createLanguageSwitcher() {
     document.body.appendChild(btn);
 }
 
-// On page load
 document.addEventListener('DOMContentLoaded', () => {
     let selectedLang = sessionStorage.getItem('selectedLanguage');
     const overlay = document.getElementById('language-selection-overlay');
 
-    // Default to Kurdish
+    // Default to Kurdish if no language is saved
     if (!selectedLang) {
         selectedLang = 'ckb';
         sessionStorage.setItem('selectedLanguage', 'ckb');
         console.log('Default language set to Kurdish.');
     }
 
-    if (overlay) overlay.classList.add('hidden'); // Hide overlay always
+    if (overlay) overlay.classList.add('hidden');
     displayContent(selectedLang);
-    createLanguageSwitcher();
+    createLanguageSwitcher(); // 🔹 يضيف الزر في الأعلى
 });
+
