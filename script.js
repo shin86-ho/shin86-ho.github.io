@@ -66,9 +66,8 @@ function sendContactEmail(event, lang) {
     window.location.href = mailtoLink;
 }
 
-// Create floating button with dropdown menu for language switching
+// ✅ Create floating button with dropdown menu for language switching
 function createLanguageSwitcher() {
-    // Wrapper
     const wrapper = document.createElement('div');
     wrapper.id = 'language-switcher-wrapper';
 
@@ -82,7 +81,6 @@ function createLanguageSwitcher() {
     // Dropdown menu
     const menu = document.createElement('div');
     menu.id = 'language-menu';
-    menu.classList.add('hidden');
 
     const languages = [
         { code: 'ckb', label: 'کوردی' },
@@ -97,7 +95,7 @@ function createLanguageSwitcher() {
         item.onclick = () => {
             sessionStorage.setItem('selectedLanguage', lang.code);
             displayContent(lang.code);
-            menu.classList.add('hidden');
+            menu.classList.remove('show');
         };
         menu.appendChild(item);
     });
@@ -105,21 +103,26 @@ function createLanguageSwitcher() {
     wrapper.appendChild(menu);
     document.body.appendChild(wrapper);
 
-    // Toggle dropdown on click
-    btn.onclick = () => menu.classList.toggle('hidden');
+    // Toggle dropdown visibility
+    btn.onclick = (e) => {
+        e.stopPropagation();
+        menu.classList.toggle('show');
+    };
 
-    // Hide dropdown if clicked outside
+    // Close dropdown if clicked outside
     document.addEventListener('click', (e) => {
-        if (!wrapper.contains(e.target)) menu.classList.add('hidden');
+        if (!wrapper.contains(e.target)) {
+            menu.classList.remove('show');
+        }
     });
 }
 
-// On page load
+// ✅ On page load
 document.addEventListener('DOMContentLoaded', () => {
     let selectedLang = sessionStorage.getItem('selectedLanguage');
     const overlay = document.getElementById('language-selection-overlay');
 
-    // Default to Kurdish
+    // Default to Kurdish if not set
     if (!selectedLang) {
         selectedLang = 'ckb';
         sessionStorage.setItem('selectedLanguage', 'ckb');
