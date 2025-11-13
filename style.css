@@ -6,25 +6,26 @@
     font-style: normal;
 }
 body {
-    font-family: 'NRT-Reg', sans-serif; /* Default font */
-    background-color: #f8f8f8;
+    font-family: 'NRT-Reg', sans-serif; /* Default font for English and as a fallback */
+    background-color: #f8f8f8; /* Soft white background for the entire site */
     color: #333;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
+/* Specific font for Arabic and Kurdish content (خط محدد للمحتوى العربي والكردي) */
 .arabic-font, .kurdish-font {
     font-family: 'Noto Kufi Arabic', 'NRT-Reg', sans-serif;
 }
 .container {
-    max-width: 1200px;
+    max-width: 1200px; /* Increased width to match reference design */
     margin-left: auto;
     margin-right: auto;
     padding-left: 1rem;
     padding-right: 1rem;
 }
 .header-bg {
-    background-color: #ffffff;
+    background-color: #ffffff; /* Clean white header */
     color: #333;
     border-bottom: 1px solid #e0e0e0;
 }
@@ -36,11 +37,11 @@ body {
     transition: color 0.2s ease, background-color 0.2s ease;
 }
 .nav-link:hover {
-    color: #e53e3a;
+    color: #e53e3a; /* Red on hover */
     background-color: #f0f0f0;
 }
 .btn-primary {
-    background-color: #e53e3a;
+    background-color: #e53e3a; /* Primary red button */
     color: white;
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
@@ -48,31 +49,31 @@ body {
     transition: background-color 0.3s ease;
 }
 .btn-primary:hover {
-    background-color: #cc0000;
+    background-color: #cc0000; /* Darker red on hover */
 }
 .hero-section {
-    background-color: #ffffff;
+    background-color: #ffffff; /* Hero section with clean white background */
     color: #333;
     padding-top: 5rem;
     padding-bottom: 5rem;
 }
 .hero-image {
-    border-radius: 1.5rem;
+    border-radius: 1.5rem; /* Larger rounded corners for images */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 .quality-card {
-    background-color: white;
-    border-radius: 1rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background-color: white; /* Service cards are white */
+    border-radius: 1rem; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Deeper, softer shadow */
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     padding: 1.5rem;
 }
 .quality-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); /* Larger shadow on hover */
 }
 .contact-info a {
-    color: #e53e3a;
+    color: #e53e3a; /* Contact links in new primary red */
     text-decoration: none;
     transition: color 0.2s ease;
 }
@@ -80,18 +81,19 @@ body {
     color: #cc0000;
     text-decoration: underline;
 }
+/* Custom styles for logo image (أنماط مخصصة لشعار الصورة) */
 .logo-img {
-    max-height: 50px;
+    max-height: 50px; /* Adjusted height to fit new design */
     width: auto;
 }
-/* Language overlay */
+/* Language selection overlay styles (أنماط تراكب اختيار اللغة) */
 #language-selection-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(0, 0, 0, 0.85); /* Very dark overlay */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,48 +102,54 @@ body {
 }
 .language-box {
     background-color: white;
-    padding: 3.5rem;
-    border-radius: 1.5rem;
+    padding: 3.5rem; /* Larger padding for the modal */
+    border-radius: 1.5rem; /* More rounded corners */
     text-align: center;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); /* Deeper shadow for the modal */
 }
 .language-button {
-    background-color: #e53e3a;
+    background-color: #e53e3a; /* Language selection buttons in primary red */
     color: white;
-    padding: 1.2rem 2.5rem;
-    margin: 1.2rem;
-    border-radius: 0.75rem;
-    font-size: 1.6rem;
-    font-weight: 600;
+    padding: 1.2rem 2.5rem; /* Larger padding for buttons */
+    margin: 1.2rem; /* Larger margin between buttons */
+    border-radius: 0.75rem; /* More rounded corners */
+    font-size: 1.6rem; /* Larger font size */
+    font-weight: 600; /* Bolder font */
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 220px;
+    width: 220px; /* Fixed width for buttons */
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 .language-button:hover {
-    background-color: #cc0000;
-    transform: translateY(-2px);
+    background-color: #cc0000; /* Darker red on hover */
+    transform: translateY(-2px); /* Slight lift effect */
 }
+/* The '.hidden' class is essential for hiding elements (فئة "مخفي" ضرورية لإخفاء العناصر) */
 .hidden {
-    display: none !important;
+    display: none !important; /* Added !important to ensure override of other styles */
 }
-/* Icons */
+
+/* Styles for icons in service cards (أنماط الأيقونات في بطاقات الخدمة) */
 .service-icon {
-    color: #e53e3a;
-    font-size: 3rem;
+    color: #e53e3a; /* Icons in prominent red */
+    font-size: 3rem; /* Larger icon size */
 }
+
+/* Specific styles for new sections (أنماط محددة للأقسام الجديدة) */
 .section-heading {
-    font-size: 2.5rem;
-    font-weight: 800;
+    font-size: 2.5rem; /* h2 equivalent */
+    font-weight: 800; /* Extra bold */
     color: #333;
     margin-bottom: 1rem;
     line-height: 1.2;
 }
 .section-subheading {
-    font-size: 1.25rem;
+    font-size: 1.25rem; /* text-xl equivalent */
     color: #666;
     margin-bottom: 2.5rem;
 }
+
+/* Style for image grid in hero section based on reference (نمط شبكة الصور في قسم البطل بناءً على المرجع) */
 .hero-images-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -154,8 +162,10 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 .hero-images-grid img:first-child {
-    grid-column: 1 / span 2;
+    grid-column: 1 / span 2; /* Make the first image span both columns */
 }
+
+/* Feature section styling (e.g., "Custom printed boxes") (نمط قسم الميزات (على سبيل المثال، "صناديق مطبوعة مخصصة")) */
 .feature-card {
     background-color: white;
     border-radius: 1rem;
@@ -164,11 +174,13 @@ body {
     text-align: center;
 }
 .feature-card img {
-    max-height: 150px;
+    max-height: 150px; /* Ensure images fit */
     width: auto;
     margin: 0 auto 1rem auto;
     border-radius: 0.5rem;
 }
+
+/* Product card styling (نمط بطاقة المنتج) */
 .product-card {
     background-color: white;
     border-radius: 1rem;
@@ -194,6 +206,7 @@ body {
     font-size: 0.8rem;
     font-weight: 600;
 }
+/* Icons with text section (e.g., "What do we mean by...") (أيقونات مع قسم نص (على سبيل المثال، "ماذا نقصد بـ...")) */
 .icon-text-item {
     display: flex;
     align-items: center;
@@ -207,8 +220,10 @@ body {
     font-size: 2rem;
     color: #e53e3a;
 }
+
+/* Video / Large image section (قسم الفيديو / الصورة الكبيرة) */
 .video-section {
-    background-color: #1a202c;
+    background-color: #1a202c; /* Dark background for visual section */
     color: white;
     padding: 5rem 0;
     position: relative;
@@ -229,7 +244,7 @@ body {
 }
 .video-placeholder {
     background-color: #333;
-    height: 400px;
+    height: 400px; /* Placeholder height */
     width: 100%;
     border-radius: 1rem;
     display: flex;
@@ -239,6 +254,8 @@ body {
     color: white;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
+
+/* Map section (قسم الخريطة) */
 .map-section {
     padding: 5rem 0;
     background-color: #f8f8f8;
@@ -257,8 +274,10 @@ body {
     height: 100%;
     border: 0;
 }
+
+/* Footer section (قسم التذييل) */
 footer {
-    background-color: #1a202c;
+    background-color: #1a202c; /* Dark footer background */
     color: white;
     padding: 4rem 0;
 }
@@ -290,32 +309,36 @@ footer a:hover {
 }
 .social-icon-box .social-icon {
     font-size: 1.5rem;
+    margin-right: 0; /* Override default margin */
     color: white;
 }
 .footer-heading {
     font-weight: 700;
     margin-bottom: 1rem;
-    font-size: 1.125rem;
+    font-size: 1.125rem; /* text-lg */
 }
+/* Custom styles for client logos section (أنماط مخصصة لقسم شعارات العملاء) */
 .client-logo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
     gap: 2rem;
     justify-items: center;
     align-items: center;
     margin-top: 2.5rem;
 }
+
 .client-logo-grid img {
-    max-width: 120px;
+    max-width: 120px; /* Increased max-width for better visibility */
     height: auto;
-    filter: grayscale(100%);
-    opacity: 0.6;
+    filter: grayscale(100%); /* Make logos grayscale */
+    opacity: 0.6; /* Reduce opacity */
     transition: all 0.3s ease;
 }
+
 .client-logo-grid img:hover {
-    filter: grayscale(0%);
-    opacity: 1;
-    transform: scale(1.05);
+    filter: grayscale(0%); /* Full color on hover */
+    opacity: 1; /* Full opacity on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
 }
 .service-list-item {
     display: flex;
@@ -324,72 +347,6 @@ footer a:hover {
     margin-bottom: 0.75rem;
 }
 .service-list-item i {
-    font-size: 1.5rem;
-    color: #e53e3a;
-}
-
-/* ✅ Floating language switcher dropdown */
-#language-switcher-wrapper {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-}
-
-#language-switcher {
-    background-color: #e53e3a;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 55px;
-    height: 55px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-#language-switcher:hover {
-    background-color: #cc0000;
-    transform: scale(1.1);
-}
-
-#language-menu {
-    position: absolute;
-    top: 65px;
-    right: 0;
-    background-color: white;
-    border-radius: 0.75rem;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.25);
-    padding: 0.5rem;
-    display: none;
-    flex-direction: column;
-    min-width: 140px;
-    z-index: 9999;
-    animation: fadeIn 0.2s ease-in-out;
-}
-
-#language-menu.show {
-    display: flex !important;
-}
-
-.language-menu-item {
-    background: none;
-    border: none;
-    padding: 0.6rem 1rem;
-    text-align: right;
-    font-weight: 600;
-    color: #333;
-    cursor: pointer;
-    border-radius: 0.5rem;
-    transition: background-color 0.2s ease;
-}
-
-.language-menu-item:hover {
-    background-color: #f2f2f2;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
+    font-size: 1.5rem; /* Icon size */
+    color: #e53e3a; /* Icon color */
 }
