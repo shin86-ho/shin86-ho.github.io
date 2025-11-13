@@ -370,4 +370,59 @@ footer a:hover {
     background-color: #cc0000;
     transform: scale(1.1);
 }
+/* Floating language switcher dropdown */
+#language-switcher-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1200;
+}
+
+#language-switcher {
+    background-color: #e53e3a;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#language-switcher:hover {
+    background-color: #cc0000;
+    transform: scale(1.1);
+}
+
+#language-menu {
+    position: absolute;
+    top: 65px;
+    right: 0;
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 130px;
+}
+
+.language-menu-item {
+    background: none;
+    border: none;
+    padding: 0.6rem 1rem;
+    text-align: right;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.language-menu-item:hover {
+    background-color: #f2f2f2;
+}
+
 
