@@ -82,13 +82,23 @@ body {
     text-decoration: underline;
 }
 .logo-img {
-    max-height: 50px;
+    max-height: 50px; /* Adjusted height to fit new design */
     width: auto;
 }
 
-/* إخفاء نافذة اختيار اللغة نهائيًا */
+/* ✅ إخفاء نافذة اختيار اللغة نهائيًا */
 #language-selection-overlay {
-  display: none !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: none !important; /* تم إخفاؤها نهائيًا */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    flex-direction: column;
 }
 
 .language-box {
@@ -320,7 +330,7 @@ footer a:hover {
     color: #e53e3a;
 }
 
-/* 🌐 Floating Language Button */
+/* ✅ زر تغيير اللغة الصغير */
 .language-float {
     position: fixed;
     top: 12px;
@@ -337,9 +347,11 @@ footer a:hover {
     cursor: pointer;
     z-index: 9999;
     font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 .language-float:hover {
     background-color: #cc0000;
+    transform: scale(1.05);
 }
 .language-dropdown {
     position: absolute;
