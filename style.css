@@ -350,3 +350,24 @@ footer a:hover {
     font-size: 1.5rem; /* Icon size */
     color: #e53e3a; /* Icon color */
 }
+#language-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #e53e3a;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 1100;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+#language-switcher:hover {
+    background-color: #cc0000;
+    transform: scale(1.1);
+}
+
