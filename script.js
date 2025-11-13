@@ -21,7 +21,7 @@ function displayContent(lang) {
     if (lang === 'ckb') {
         document.getElementById('kurdish-content').classList.remove('hidden');
         document.documentElement.lang = 'ckb';
-        document.body.dir = 'ltr'; /* Kurdish is generally left-to-right */
+        document.body.dir = 'rtl'; /* Kurdish should be right-to-left */
         console.log('Kurdish content displayed.');
     } else if (lang === 'ar') {
         document.getElementById('arabic-content').classList.remove('hidden');
@@ -106,25 +106,23 @@ function sendContactEmail(event, lang) {
     }
 }
 
-// Check for selected language on page load (التحقق من اللغة المختارة عند تحميل الصفحة)
+// ✅ Modified: Kurdish is default language and overlay hidden
 document.addEventListener('DOMContentLoaded', () => {
-    const selectedLang = sessionStorage.getItem('selectedLanguage');
-    console.log('DOMContentLoaded - Stored language:', selectedLang);
+    let selectedLang = sessionStorage.getItem('selectedLanguage');
     const overlay = document.getElementById('language-selection-overlay');
-    if (selectedLang) {
-        if (overlay) {
-            overlay.classList.add('hidden'); // Hide overlay on load if language is stored
-            console.log('Overlay hidden on load due to stored language.');
-        }
-        displayContent(selectedLang); // Display content for stored language
-    } else {
-        if (overlay) {
-            overlay.classList.remove('hidden'); // Show overlay if no language stored
-            console.log('No stored language, showing overlay.');
-        }
-    }
-});
 
+    // إذا لم يتم تحديد لغة سابقًا، اجعل الكردية هي الافتراضية
+    if (!selectedLang) {
+        selectedLang = 'ckb';
+        sessionStorage.setItem('selectedLanguage', selectedLang);
+    }
+
+    // أخفِ نافذة اختيار اللغة دائمًا
+    if (overlay) overlay.classList.add('hidden');
+
+    // عرض المحتوى المناسب
+    displayContent(selectedLang);
+});
 
 // 🌐 Floating Language Button Logic
 document.addEventListener('DOMContentLoaded', () => {
