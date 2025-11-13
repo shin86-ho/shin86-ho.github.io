@@ -19,14 +19,17 @@ function displayContent(lang) {
         document.getElementById('kurdish-content').classList.remove('hidden');
         document.documentElement.lang = 'ckb';
         document.body.dir = 'ltr';
+        console.log('Kurdish content displayed.');
     } else if (lang === 'ar') {
         document.getElementById('arabic-content').classList.remove('hidden');
         document.documentElement.lang = 'ar';
         document.body.dir = 'rtl';
+        console.log('Arabic content displayed.');
     } else if (lang === 'en') {
         document.getElementById('english-content').classList.remove('hidden');
         document.documentElement.lang = 'en';
         document.body.dir = 'ltr';
+        console.log('English content displayed.');
     }
 
     // Scroll to top after switching
@@ -51,7 +54,7 @@ function sendContactEmail(event, lang) {
         description = document.getElementById('description-ar-main')?.value || document.getElementById('description-ar')?.value;
         subject = 'طلب طباعة من Rix Printing';
         body = `اسم المرسل: ${name}\nرقم الهاتف: ${phone}\nالوصف: ${description}`;
-    } else {
+    } else if (lang === 'en') {
         name = document.getElementById('name-en-main')?.value || document.getElementById('name-en')?.value;
         phone = document.getElementById('phone-en-main')?.value || document.getElementById('phone-en')?.value;
         description = document.getElementById('description-en-main')?.value || document.getElementById('description-en')?.value;
@@ -63,24 +66,60 @@ function sendContactEmail(event, lang) {
     window.location.href = mailtoLink;
 }
 
-// Floating button to switch language
+// Create floating button with dropdown menu for language switching
 function createLanguageSwitcher() {
+    // Wrapper
+    const wrapper = document.createElement('div');
+    wrapper.id = 'language-switcher-wrapper';
+
+    // Main button (🌐)
     const btn = document.createElement('button');
     btn.id = 'language-switcher';
     btn.innerHTML = '<i class="fas fa-globe"></i>';
     btn.title = 'Change Language';
-    btn.onclick = () => {
-        sessionStorage.removeItem('selectedLanguage');
-        location.reload(); // Show overlay again
-    };
-    document.body.appendChild(btn);
+    wrapper.appendChild(btn);
+
+    // Dropdown menu
+    const menu = document.createElement('div');
+    menu.id = 'language-menu';
+    menu.classList.add('hidden');
+
+    const languages = [
+        { code: 'ckb', label: 'کوردی' },
+        { code: 'ar', label: 'عربي' },
+        { code: 'en', label: 'English' }
+    ];
+
+    languages.forEach(lang => {
+        const item = document.createElement('button');
+        item.className = 'language-menu-item';
+        item.textContent = lang.label;
+        item.onclick = () => {
+            sessionStorage.setItem('selectedLanguage', lang.code);
+            displayContent(lang.code);
+            menu.classList.add('hidden');
+        };
+        menu.appendChild(item);
+    });
+
+    wrapper.appendChild(menu);
+    document.body.appendChild(wrapper);
+
+    // Toggle dropdown on click
+    btn.onclick = () => menu.classList.toggle('hidden');
+
+    // Hide dropdown if clicked outside
+    document.addEventListener('click', (e) => {
+        if (!wrapper.contains(e.target)) menu.classList.add('hidden');
+    });
 }
 
+// On page load
 document.addEventListener('DOMContentLoaded', () => {
     let selectedLang = sessionStorage.getItem('selectedLanguage');
     const overlay = document.getElementById('language-selection-overlay');
 
-    // Default to Kurdish if no language is saved
+    // Default to Kurdish
     if (!selectedLang) {
         selectedLang = 'ckb';
         sessionStorage.setItem('selectedLanguage', 'ckb');
@@ -89,6 +128,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (overlay) overlay.classList.add('hidden');
     displayContent(selectedLang);
-    createLanguageSwitcher(); // 🔹 يضيف الزر في الأعلى
+    createLanguageSwitcher();
 });
-
