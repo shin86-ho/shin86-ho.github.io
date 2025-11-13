@@ -124,3 +124,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+
+// 🌐 Floating Language Button Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('language-button');
+    const dropdown = document.getElementById('language-dropdown');
+    const currentLangName = document.getElementById('current-language-name');
+    const storedLang = sessionStorage.getItem('selectedLanguage') || 'ckb';
+    
+    function updateLangLabel(lang) {
+        if (!currentLangName) return;
+        if (lang === 'ckb') currentLangName.textContent = 'کوردی';
+        else if (lang === 'ar') currentLangName.textContent = 'عربي';
+        else currentLangName.textContent = 'English';
+    }
+    updateLangLabel(storedLang);
+
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!btn.contains(e.target)) dropdown.classList.add('hidden');
+    });
+
+    const originalSetLanguage = window.setLanguage;
+    window.setLanguage = function(lang) {
+        originalSetLanguage(lang);
+        updateLangLabel(lang);
+        dropdown.classList.add('hidden');
+    };
+});
