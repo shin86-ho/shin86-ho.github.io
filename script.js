@@ -1,77 +1,126 @@
-document.addEventListener('DOMContentLoaded', () => {
-    let selectedLang = sessionStorage.getItem('selectedLanguage');
+// Function to set language and save it to session storage (وظيفة لتعيين اللغة وحفظها في تخزين الجلسة)
+function setLanguage(lang) {
+    console.log('Language selected:', lang);
+    sessionStorage.setItem('selectedLanguage', lang);
     const overlay = document.getElementById('language-selection-overlay');
-
-    if (!selectedLang) {
-        selectedLang = 'ckb';
-        sessionStorage.setItem('selectedLanguage', 'ckb');
+    if (overlay) {
+        overlay.classList.add('hidden'); // Hide the language selection overlay
+        console.log('Overlay hidden.');
     }
+    displayContent(lang); // Display content for the selected language
+}
 
-    if (overlay) overlay.classList.add('hidden');
-    displayContent(selectedLang);
-    createLanguageSwitcher();
-});
-
-// === Language Display Function ===
+// Function to display content based on selected language (وظيفة لعرض المحتوى بناءً على اللغة المختارة)
 function displayContent(lang) {
+    // Hide all content sections first (إخفاء جميع أقسام المحتوى أولاً)
     document.getElementById('kurdish-content').classList.add('hidden');
     document.getElementById('arabic-content').classList.add('hidden');
-    document.getElementById('english-content').classList.add('hidden');
-
+    document.getElementById('english-content').classList.add('hidden'); 
+    
+    // Show content for the selected language (إظهار المحتوى للغة المختارة)
     if (lang === 'ckb') {
         document.getElementById('kurdish-content').classList.remove('hidden');
-        document.body.dir = 'ltr';
+        document.documentElement.lang = 'ckb';
+        document.body.dir = 'ltr'; /* Kurdish is generally left-to-right */
+        console.log('Kurdish content displayed.');
     } else if (lang === 'ar') {
         document.getElementById('arabic-content').classList.remove('hidden');
-        document.body.dir = 'rtl';
-    } else {
+        document.documentElement.lang = 'ar';
+        document.body.dir = 'rtl'; /* Arabic is right-to-left */
+        console.log('Arabic content displayed.');
+    } else if (lang === 'en') {
         document.getElementById('english-content').classList.remove('hidden');
+        document.documentElement.lang = 'en';
         document.body.dir = 'ltr';
+        console.log('English content displayed.');
+    }
+    // Scroll to the top of the page after displaying content (التمرير إلى أعلى الصفحة بعد عرض المحتوى)
+    window.scrollTo(0, 0);
+}
+
+// Function to send contact email (وظيفة لإرسال بريد إلكتروني للتواصل)
+function sendContactEmail(event, lang) {
+    event.preventDefault(); // Prevent default form submission (منع الإرسال الافتراضي للنموذج)
+
+    let name, phone, description, subject, body;
+
+    // Determine which form fields to get values from based on language (تحديد حقول النموذج للحصول على القيم منها بناءً على اللغة)
+    if (lang === 'ckb') {
+        // Prioritize main contact form, then fallback to footer form (إعطاء الأولوية لنموذج الاتصال الرئيسي، ثم نموذج التذييل)
+        name = document.getElementById('name-ckb-main')?.value || document.getElementById('name-ckb')?.value;
+        phone = document.getElementById('phone-ckb-main')?.value || document.getElementById('phone-ckb')?.value;
+        description = document.getElementById('description-ckb-main')?.value || document.getElementById('description-ckb')?.value;
+        subject = 'داواکاری چاپ لە Rix Printing';
+        body = `ناوی ناردن: ${name}\nژمارەی مۆبایل: ${phone}\nوەسف: ${description}`;
+    } else if (lang === 'ar') {
+        name = document.getElementById('name-ar-main')?.value || document.getElementById('name-ar')?.value;
+        phone = document.getElementById('phone-ar-main')?.value || document.getElementById('phone-ar')?.value;
+        description = document.getElementById('description-ar-main')?.value || document.getElementById('description-ar')?.value;
+        subject = 'طلب طباعة من Rix Printing';
+        body = `اسم المرسل: ${name}\nرقم الهاتف: ${phone}\nالوصف: ${description}`;
+    } else if (lang === 'en') {
+        name = document.getElementById('name-en-main')?.value || document.getElementById('name-en')?.value;
+        phone = document.getElementById('phone-en-main')?.value || document.getElementById('phone-en')?.value;
+        description = document.getElementById('description-en-main')?.value || document.getElementById('description-en')?.value;
+        subject = 'Printing Inquiry from Rix Printing';
+        body = `Sender Name: ${name}\nPhone Number: ${phone}\nDescription: ${description}`;
+    }
+
+    const mailtoLink = `mailto:rixprint123@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
+
+    // Clear the form fields after submission attempt (مسح حقول النموذج بعد محاولة الإرسال)
+    if (lang === 'ckb') {
+        if (document.getElementById('name-ckb-main')) {
+            document.getElementById('name-ckb-main').value = '';
+            document.getElementById('phone-ckb-main').value = '';
+            document.getElementById('description-ckb-main').value = '';
+        }
+        if (document.getElementById('name-ckb')) { /* Also clear if it's the footer form */
+            document.getElementById('name-ckb').value = '';
+            document.getElementById('phone-ckb').value = '';
+            document.getElementById('description-ckb').value = '';
+        }
+    } else if (lang === 'ar') {
+        if (document.getElementById('name-ar-main')) {
+            document.getElementById('name-ar-main').value = '';
+            document.getElementById('phone-ar-main').value = '';
+            document.getElementById('description-ar-main').value = '';
+        }
+        if (document.getElementById('name-ar')) {
+            document.getElementById('name-ar').value = '';
+            document.getElementById('phone-ar').value = '';
+            document.getElementById('description-ar').value = '';
+        }
+    } else if (lang === 'en') {
+        if (document.getElementById('name-en-main')) {
+            document.getElementById('name-en-main').value = '';
+            document.getElementById('phone-en-main').value = '';
+            document.getElementById('description-en-main').value = '';
+        }
+        if (document.getElementById('name-en')) {
+            document.getElementById('name-en').value = '';
+            document.getElementById('phone-en').value = '';
+            document.getElementById('description-en').value = '';
+        }
     }
 }
 
-// === Create Button and Menu ===
-function createLanguageSwitcher() {
-    const wrapper = document.createElement('div');
-    wrapper.id = 'language-switcher-wrapper';
-
-    const btn = document.createElement('button');
-    btn.id = 'language-switcher';
-    btn.innerHTML = '<i class="fas fa-globe"></i>';
-    wrapper.appendChild(btn);
-
-    const menu = document.createElement('div');
-    menu.id = 'language-menu';
-
-    const langs = [
-        { code: 'ckb', label: 'کوردی' },
-        { code: 'ar', label: 'عربي' },
-        { code: 'en', label: 'English' }
-    ];
-
-    langs.forEach(l => {
-        const item = document.createElement('button');
-        item.className = 'language-menu-item';
-        item.textContent = l.label;
-        item.onclick = () => {
-            sessionStorage.setItem('selectedLanguage', l.code);
-            displayContent(l.code);
-            menu.classList.remove('show');
-        };
-        menu.appendChild(item);
-    });
-
-    wrapper.appendChild(menu);
-    document.body.appendChild(wrapper);
-
-    btn.onclick = (e) => {
-        e.stopPropagation();
-        menu.classList.toggle('show');
-    };
-
-    document.addEventListener('click', (e) => {
-        if (!wrapper.contains(e.target)) {
-            menu.classList.remove('show');
+// Check for selected language on page load (التحقق من اللغة المختارة عند تحميل الصفحة)
+document.addEventListener('DOMContentLoaded', () => {
+    const selectedLang = sessionStorage.getItem('selectedLanguage');
+    console.log('DOMContentLoaded - Stored language:', selectedLang);
+    const overlay = document.getElementById('language-selection-overlay');
+    if (selectedLang) {
+        if (overlay) {
+            overlay.classList.add('hidden'); // Hide overlay on load if language is stored
+            console.log('Overlay hidden on load due to stored language.');
         }
-    });
-}
+        displayContent(selectedLang); // Display content for stored language
+    } else {
+        if (overlay) {
+            overlay.classList.remove('hidden'); // Show overlay if no language stored
+            console.log('No stored language, showing overlay.');
+        }
+    }
+});
