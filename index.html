@@ -1,981 +1,1454 @@
 <!DOCTYPE html>
-<html lang="ckb">
+<html lang="ckb" dir="rtl">
 <head>
-   <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rix Printing - خزمەتگوزاری چاپەمەنی</title>
-    <!-- Tailwind CSS CDN -->
+    <meta name="description" content="چاپخانەی ڕیکس بۆ چاپەمەنی گشتی - خزمەتگوزاری چاپی کوالێتی بەرز لە هەرێمی کوردستان">
+    <meta property="og:title" content="Rix Printing - خزمەتگوزاری چاپەمەنی">
+    <meta property="og:description" content="چاپخانەی ڕیکس بۆ چاپەمەنی گشتی - خزمەتگوزاری چاپی کوالێتی بەرز لە هەرێمی کوردستان">
+    <meta property="og:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6DQ8wsfNFwfoVN7B-MEyetqDTMsV6xk1gKuwJn85bDl2kur5f3ZVuMgfQekbE8arTQu_xQSsuoVmFcOUyjaFG4RVwOvG0_kqAEb-V3MgYRzxjo7c-8mE1zqjYrN7gpdmhdDtLQ8uq2Uk_WAa1imn-XtBkTZlXAhhZJZ4Ii2qJEWoFs0jgDdXDNv31e2J2/s2332/rix%20logo.png">
+    <meta property="og:url" content="https://rixprinting.com">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Noto Kufi Arabic for Arabic and Kurdish -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Custom CSS Link -->
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        :root {
+            --primary-color: #b01e1e;
+            --secondary-color: #dc5454;
+            --accent-color: #f59e0b;
+            --text-dark: #381f1f;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+        }
+        
+        .font-kurdish { font-family: 'Noto Kufi Arabic', sans-serif; }
+        .font-english { font-family: 'Noto Sans', sans-serif; }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* RTL Specific Styles */
+        .rtl .text-right { text-align: right !important; }
+        .rtl .text-left { text-align: left !important; }
+        .rtl .mr-4 { margin-left: 1rem !important; margin-right: 0 !important; }
+        .rtl .ml-4 { margin-right: 1rem !important; margin-left: 0 !important; }
+        .rtl .pr-4 { padding-left: 1rem !important; padding-right: 0 !important; }
+        .rtl .pl-4 { padding-right: 1rem !important; padding-left: 0 !important; }
+        
+        /* Side Menu Styles */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .side-menu.open {
+            right: 0;
+        }
+        
+        .side-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .side-menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+        
+        /* Language Menu Styles */
+        .language-menu {
+            padding: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .language-option {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            margin: 8px 0;
+            background: #f3f4f6;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Noto Kufi Arabic', sans-serif;
+        }
+        
+        .language-option:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(-5px);
+        }
+        
+        .language-option.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        /* Top Navigation Language Switcher */
+        .top-language-switcher {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .top-lang-btn {
+            padding: 6px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            background: white;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-family: 'Noto Kufi Arabic', sans-serif;
+        }
+        
+        .top-lang-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .top-lang-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        /* Featured Designs Section */
+        .design-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .design-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .design-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .design-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        
+        .design-card p {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .design-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        
+        .design-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        /* Partners Section */
+        .partner-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .partner-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .partner-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid #e5e7eb;
+        }
+        
+        /* Contact form styles */
+        .contact-form {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Contact info styles */
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+        
+        .contact-info-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-info-content h4 {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.25rem;
+        }
+        
+        .contact-info-content p {
+            color: #6b7280;
+            margin: 0;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 280px;
+                right: -280px;
+            }
+            
+            .mobile-menu-btn {
+                top: 15px;
+                right: 15px;
+                padding: 10px;
+            }
+            
+            .top-language-switcher {
+                display: none;
+            }
+            
+            .design-card {
+                margin-bottom: 1rem;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+        
+        /* Arabic and Kurdish text spacing */
+        .arabic-text p,
+        .kurdish-text p {
+            line-height: 2.5; /* 20pt line spacing */
+            margin-bottom: 20px;
+        }
+        
+        .arabic-text h1,
+        .kurdish-text h1,
+        .arabic-text h2,
+        .kurdish-text h2,
+        .arabic-text h3,
+        .kurdish-text h3 {
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        /* Desktop navigation hide on mobile */
+        @media (max-width: 1024px) {
+            .desktop-nav {
+                display: none;
+            }
+        }
+        
+        /* Map iframe responsive */
+        iframe {
+            border-radius: 12px;
+        }
+        
+        /* Footer improvements */
+        footer {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        }
+        
+        /* Instagram link styles */
+        .instagram-link {
+            color: #e1306c;
+            transition: all 0.3s ease;
+        }
+        
+        .instagram-link:hover {
+            color: #c13584;
+            transform: scale(1.1);
+        }
+        
+        /* Reveal animation styles */
+        .card-hover, .partner-card, .contact-form, .design-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .card-hover.revealed, .partner-card.revealed, .contact-form.revealed, .design-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .form-group.focused .form-label {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+    </style>
 </head>
-<body class="antialiased">
+<body class="rtl font-kurdish bg-gray-50">
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" onclick="toggleSideMenu()">
+        <i class="fas fa-bars text-xl"></i>
+    </button>
+    
+    <!-- Side Menu Overlay -->
+    <div class="side-menu-overlay" id="sideMenuOverlay" onclick="closeSideMenu()"></div>
+    
+    <!-- Side Menu -->
+    <nav class="side-menu" id="sideMenu">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-xl font-bold text-gray-800">Rix Printing</h3>
+                <button onclick="closeSideMenu()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Navigation Links -->
+            <div class="space-y-4 mb-8">
+                <a href="#services" class="block py-3 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all duration-300" onclick="closeSideMenu()">
+                    <i class="fas fa-print mr-3"></i>
+                    <span id="mobile-nav-services">خزمەتگوزارییەکان</span>
+                </a>
+                <a href="#designs" class="block py-3 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all duration-300" onclick="closeSideMenu()">
+                    <i class="fas fa-palette mr-3"></i>
+                    <span id="mobile-nav-designs">دیزاین و بەرهەمە جیاوازەکان</span>
+                </a>
+                <a href="#about" class="block py-3 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all duration-300" onclick="closeSideMenu()">
+                    <i class="fas fa-info-circle mr-3"></i>
+                    <span id="mobile-nav-about">دەربارەی ئێمە</span>
+                </a>
+                <a href="#partners" class="block py-3 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all duration-300" onclick="closeSideMenu()">
+                    <i class="fas fa-handshake mr-3"></i>
+                    <span id="mobile-nav-partners">هاوبەش و کڕیارەکانمان</span>
+                </a>
+                <a href="#contact" class="block py-3 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all duration-300" onclick="closeSideMenu()">
+                    <i class="fas fa-phone mr-3"></i>
+                    <span id="mobile-nav-contact">پەیوەندی</span>
+                </a>
+                <a href="#blog" class="block py-3 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all duration-300" onclick="closeSideMenu()">
+                    <i class="fas fa-blog mr-3"></i>
+                    <span id="mobile-nav-blog">بلاگ</span>
+                </a>
+                <a href="https://wa.me/9647506151617" class="block py-3 px-4 text-green-600 hover:bg-green-50 rounded-lg transition-all duration-300" target="_blank" onclick="closeSideMenu()">
+                    <i class="fab fa-whatsapp mr-3"></i>
+                    <span id="mobile-nav-whatsapp">واتساپ</span>
+                </a>
+            </div>
+            
+            <!-- Language Selection -->
+            <div class="language-menu">
+                <h4 class="text-sm font-semibold text-gray-600 mb-4">هەڵبژاردنی زمان / اللغة</h4>
+                <button class="language-option active" onclick="switchLanguage('ckb')" id="lang-ckb">
+                    کوردی (Kurdish)
+                </button>
+                <button class="language-option" onclick="switchLanguage('ar')" id="lang-ar">
+                    عربي (Arabic)
+                </button>
+                <button class="language-option" onclick="switchLanguage('en')" id="lang-en">
+                    English (English)
+                </button>
+            </div>
+        </div>
+    </nav>
 
-    <!-- Language Selection Overlay (تراكب اختيار اللغة) -->
-    <div id="language-selection-overlay">
-        <div class="language-box">
-            <h2 class="text-3xl font-bold mb-6 text-gray-800">تکایە زمانێک هەڵبژێرە / الرجاء اختيار اللغة / Please select a language</h2>
-            <button class="language-button" onclick="setLanguage('ckb')">کوردی</button>
-            <button class="language-button" onclick="setLanguage('ar')">العربية</button>
-            <button class="language-button" onclick="setLanguage('en')">English</button>
+<!-- Desktop Navigation -->
+<nav class="desktop-nav fixed top-0 left-0 right-0 z-50 bg-white shadow-lg">
+    <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6DQ8wsfNFwfoVN7B-MEyetqDTMsV6xk1gKuwJn85bDl2kur5f3ZVuMgfQekbE8arTQu_xQSsuoVmFcOUyjaFG4RVwOvG0_kqAEb-V3MgYRzxjo7c-8mE1zqjYrN7gpdmhdDtLQ8uq2Uk_WAa1imn-XtBkTZlXAhhZJZ4Ii2qJEWoFs0jgDdXDNv31e2J2/s2332/rix%20logo.png" 
+                     alt="Rix Printing Logo" class="h-12 w-30">
+                <span class="text-2xl font-bold text-red-600 mr-4" id="desktop-brand">
+                    Rix Printing
+                </span>
+            </div>
+                
+                <div class="flex items-center space-x-8 space-x-reverse">
+                 <a href="#services" class="text-gray-700 hover:text-red-600 transition-colors" id="desktop-nav-services"> خزمەتگوزارییەکان</a>
+                 <a href="#designs" class="text-gray-700 hover:text-red-600 transition-colors" id="desktop-nav-designs">دیزاینەکان</a>
+                 <a href="#about" class="text-gray-700 hover:text-red-600 transition-colors" id="desktop-nav-about">دەربارەی ئێمە</a>
+                 <a href="#partners" class="text-gray-700 hover:text-red-600 transition-colors" id="desktop-nav-partners">هاوبەش و کڕیارەکانمان</a>
+                 <a href="#contact" class="text-gray-700 hover:text-red-600 transition-colors" id="desktop-nav-contact">پەیوەندی</a>
+                 <a href="#blog" class="text-gray-700 hover:text-red-600 transition-colors" id="desktop-nav-blog">بلاگ</a>
+
+                    
+                    <!-- Language Switcher -->
+                    <div class="top-language-switcher">
+                        <button class="top-lang-btn active" onclick="switchLanguage('ckb')" id="top-lang-ckb">کوردی</button>
+                        <button class="top-lang-btn" onclick="switchLanguage('ar')" id="top-lang-ar">عربي</button>
+                        <button class="top-lang-btn" onclick="switchLanguage('en')" id="top-lang-en">EN</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+<section class="hero-gradient relative min-h-screen flex items-center justify-center text-white pt-20 overflow-hidden">
+
+    <!-- خلفية ضبابية -->
+    <div class="absolute inset-0 bg-[url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTPTa5Mklok4oorXtwlmFtiTSF8145dRiZDP1m68YULy3OiQWlTwz2AaWJmShj_JXMheM5s7PwgR3nF5Gb-eP-tYNGqS6wy3ykLD9t5MvyhPPQgJwW-YJv4Q8KIaoOPBMB27DIQ3CioBjW_ucNvtVJtEAtA4_UqFLSE2AbyOkEX_E_jxd51zb89PwQ9o0q/s2000/8969.jpg')] 
+        bg-cover bg-center blur-xl opacity-40">
+    </div>
+
+    <!-- محتوى الهيرو -->
+    <div class="container mx-auto px-6 text-center">
+
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 kurdish-text" id="hero-title">
+            چاپخانەی ریکس بۆ چاپەمەنی گشتی
+        </h1>
+
+        <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed kurdish-text" id="hero-subtitle">
+            ئێمە یارمەتی براندەکان دەدەین بۆ دروستکردنی چاپی جیاواز و سەرنجڕاکێش.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-6 mb-12">
+            <div class="bg-white bg-opacity-20 px-6 py-3 rounded-full backdrop-blur-sm">
+                <span class="font-semibold" id="hero-trust">متمانە</span>
+            </div>
+            <div class="bg-white bg-opacity-20 px-6 py-3 rounded-full backdrop-blur-sm">
+                <span class="font-semibold" id="hero-quality">کوالێتی</span>
+            </div>
+            <div class="bg-white bg-opacity-20 px-6 py-3 rounded-full backdrop-blur-sm">
+                <span class="font-semibold" id="hero-speed">خێرایی</span>
+            </div>
+        </div>
+
+        <a href="#services" 
+           class="inline-block bg-yellow-500 text-gray-900 px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 pulse-animation" 
+           id="hero-cta">
+            دەستپێبکە
+        </a>
+
+    </div>
+</section>
+
+
+    <!-- Opening Images Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg card-hover">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8F2IqxC5T8sr1iWTbfHLHA2tThUybkmzjAES7WVixZlPN3wKeCxXX0X993YK1j9ssymjuTYOLC9u-6ouJyJZEiRnMx2OHZL9Mj2DF9FcJcnR94d_yQLOwEVE9n0LwZmDj_Nco61JBh3oujWDDybGgaDlW-iBCMpLO_Mve7lIw25OWvKSn9wueFZi5gQgO/s1709/%D8%B4%D8%AB%D8%A7.jpg" 
+                         alt="Professional Printing Services" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-semibold text-gray-800 kurdish-text">خدمات الطباعة الاحترافية</h3>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg card-hover">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgixePvfpYC4mk_wBsWI4MD384VxBB0gkdtrQPk3TgNJ1rx3fYf0p4OOwYEGrU49j0lP8OsD4t_WlqQ4l_2W92yrp1n1O_xh_7Wb6RX7UiamfFgbjOB9KYtMjrDF32HkIuvcao4ewvtnl9_LfEMjv6EhMyF_8FdxzJa3CvQKs3MOvpsrVPmxsejRJNZ2ktm/s1709/%D8%B4%D8%B3%D8%AB%D8%A7%D9%84%D8%B4%D8%B3%D8%AB%D8%A7%D9%84.jpg" 
+                         alt="Creative Design Services" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-semibold text-gray-800 kurdish-text">تصاميم إبداعية</h3>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg card-hover">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh_PJrYJoiPyqxLBE5aU8lIwO8jusMNlKwfq67SP68AjMjlx3L3cYNxa_Yhkz9o6jZ9SYc3VrDMOkJs0QcjfCZdjUjShBpFSbN7_HEXu8AcHtRONfsduE_PLuiNXUn9NS2QE-rkxc6pMh0DPVdgk24Y5ywzpsvCahmGxxYV1-yAq58YUPZZQk8GsziASuuQ/s2709/OUR-CATALOG.jpg" 
+                         alt="Quality Products" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-semibold text-gray-800 kurdish-text">منتجات عالية الجودة</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 kurdish-text" id="services-title">
+                    خزمەتگوزارییەکانمان
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto kurdish-text" id="services-subtitle">
+                    چاپخانەی ڕیکس ئەم خزمەتگوزارییانە پێشکەش دەکات
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Printing Types -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl card-hover kurdish-text">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-print"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4" id="printing-types">جۆرەکانی چاپکردن</h3>
+                    <ul class="text-gray-600 space-y-2">
+                        <li id="offset-printing">• چاپی ئۆفسێت</li>
+                        <li id="digital-printing">• چاپی دیجیتال</li>
+                        <li id="embossing">• حەرف بارز</li>
+                        <li id="uv-dtf">• UV DTF چاپی</li>
+                        <li id="dtf-printing">• DTF چاپی</li>
+                        <li id="tampo-printing">• چاپی تامپۆ</li>
+                        <li id="laser-printing">• چاپی لێزەر</li>
+                        <li id="thermal-printing">• چاپی حەراری</li>
+                        <li id="screen-printing">• چاپی سکڕین</li>
+                        <li id="drum-printing">• چاپی دروومان</li>
+                    </ul>
+                </div>
+                
+                <!-- Poster & Banner Printing -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl card-hover kurdish-text">
+                    <div class="text-green-600 text-4xl mb-4">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4" id="poster-printing">چاپکردنی پۆستەر و بانەر</h3>
+                    <ul class="text-gray-600 space-y-2">
+                        <li id="design-print">• دیزاین و چاپ</li>
+                        <li id="large-format">• چاپکردنی قەبارە گەورە</li>
+                        <li id="high-quality">• کوالێتی بەرز</li>
+                    </ul>
+                </div>
+                
+                <!-- Book Printing -->
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl card-hover kurdish-text">
+                    <div class="text-purple-600 text-4xl mb-4">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4" id="book-printing">چاپکردنی کتێب و گۆڤار</h3>
+                    <ul class="text-gray-600 space-y-2">
+                        <li id="various-designs">• دیزاین و قەبارەی جیاواز</li>
+                        <li id="cover-printing">• چاپکردنی ناوەوە و بەرگ</li>
+                    </ul>
+                </div>
+                
+                <!-- Business Cards -->
+                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-8 rounded-2xl card-hover kurdish-text">
+                    <div class="text-yellow-600 text-4xl mb-4">
+                        <i class="fas fa-address-card"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4" id="card-printing">چاپکردنی کارتی بانگهێشت و بزنس</h3>
+                    <ul class="text-gray-600 space-y-2">
+                        <li id="custom-design">• دیزاینی تایبەت</li>
+                        <li id="precise-cutting">• بڕینی ورد</li>
+                    </ul>
+                </div>
+                
+                <!-- Clothing Printing -->
+                <div class="bg-gradient-to-br from-red-50 to-red-100 p-8 rounded-2xl card-hover kurdish-text">
+                    <div class="text-red-600 text-4xl mb-4">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4" id="clothing-printing">چاپکردنی جل و بەرگ</h3>
+                    <ul class="text-gray-600 space-y-2">
+                        <li id="direct-printing">• دروومان و چاپکردنی ڕاستەوخۆ</li>
+                        <li id="color-variety">• ڕەنگ و دیزاینی جیاواز</li>
+                    </ul>
+                </div>
+                
+                <!-- Custom Packaging -->
+                <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-8 rounded-2xl card-hover kurdish-text">
+                    <div class="text-indigo-600 text-4xl mb-4">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4" id="custom-packaging">چاپکردنی کارتۆنی تایبەت</h3>
+                    <p class="text-gray-600" id="packaging-desc">
+                        چاپخانەی ڕیکس ڕێگەت پێدەدات چاپکراوی تایبەت بە براندەکەت دیزاین بکەیت و چاپی بکەیت.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Designs Section -->
+    <section id="designs" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <!-- Our Work Images -->
+            <div class="grid md:grid-cols-3 gap-6 mb-16">
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg card-hover">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEit9gM-IC2-AuX4QmN9ZWsmmo5m3E2BWSpTJtd_z_GIwKxapC6iPa8KuFRrWI6UL1q7KSZgJBGjIaclj619azQky_hlKAEF6-mHNdDtfW9DEvQw2j8SWV_7Y6hEKVjl0QYE5CpsWr8XnnkD0IEedhifksdx1MxqJu8_n0Ki7jaU3ZbTymvLOzRQCqheIIoo/s300/34634576.jpg" 
+                         alt="Our Work 1" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-semibold text-gray-800 kurdish-text">أعمالنا 1</h3>
+                        <p class="text-gray-600 text-sm">نماذج من أعمالنا المميزة</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg card-hover">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEibm759yBtbSwMT53VwF6_0uGC77Fp6xmii9rUFM-e4liedkn2LBTkALRL7BbTk5HsdVtAj1j7j3w-RFv4rJgjKlvdGFYkxpLw5XCzzJ53SzRmnok8SzBXtFkkh1vR6HXgJEVZmAhxIvUHWmIe5H4vlHdD_SWcyCrGvaSaaXi5a9ORyIJNuI6vhyVb5jgQp/s300/357%D8%B95%D8%B9.jpg" 
+                         alt="Our Work 2" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-semibold text-gray-800 kurdish-text">أعمالنا 2</h3>
+                        <p class="text-gray-600 text-sm">جودة عالية وتصاميم مبتكرة</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg card-hover">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEitUyzTqUdM8OIw4J7o3znmrwLnquTUuo821cp758GECx1bUhKefBsiRXiQyDMVOw6tjUHwfiZ7WXP0amTev1cOMZ1fcn01rHg_Fu6NKy504k2mXIWXntrR3XGhTtt-9w5mQb59P5DQdsUbo6rYaQsI1CofRrOwkFz6K48LMKyykC15BfeVIYyGLSfUu519/s300/4235.jpg" 
+                         alt="Our Work 3" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-semibold text-gray-800 kurdish-text">أعمالنا 3</h3>
+                        <p class="text-gray-600 text-sm">تنوع في الخدمات والمنتجات</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 kurdish-text" id="designs-title">
+                    دیزاین و بەرهەمە جیاوازەکان
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto kurdish-text" id="designs-subtitle">
+                    بەشی تایبەت بە دیزاین و بەرهەمە جیاوازەکان
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Booklets & Catalogs -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-blue-500">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 id="designs-booklets">Booklets & Catalogs</h3>
+                    <p id="designs-booklets-desc">دیزاین و چاپی کتێبچە و کتالۆگی تایبەت</p>
+                    <a href="https://drive.google.com/file/d/1VtdAqQAMFSFdZpyOWe-3xQgrMjTqRi-F/view?usp=drive_link" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Brochures -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-green-500">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 id="designs-brochures">Brochures</h3>
+                    <p id="designs-brochures-desc">بروشوری ڕیکلامی بە دیزاینی نوێ</p>
+                    <a href="https://drive.google.com/file/d/1sjcCJE_lE5YOtRV_sJer_rxjMZn2pkiU/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Business Cards -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-purple-500">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3 id="designs-business-cards">Business Cards</h3>
+                    <p id="designs-business-cards-desc">کارتی بازرگانی</p>
+                    <a href="https://drive.google.com/file/d/1QPZhHcYa4DMrBImkEikdEWHOVEBrJ4IV/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Calendars -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-red-500">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 id="designs-calendars">Calendars</h3>
+                    <p id="designs-calendars-desc">ساڵنامەی دیواری و مێزی تایبەت</p>
+                    <a href="https://drive.google.com/file/d/1mSOEfJfIXVewGwSiCunkKZWjpayLJ-yZ/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Car Stickers -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-yellow-500">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3 id="designs-car-stickers">Car Stickers</h3>
+                    <p id="designs-car-stickers-desc">ستیکەری ئۆتۆمبێل و شاشە</p>
+                    <a href="https://drive.google.com/file/d/1rErf_pizlO9UeVKmlmJ7tZeYV3oCgB4F/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Carbon Forms -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-indigo-500">
+                        <i class="fas fa-copy"></i>
+                    </div>
+                    <h3 id="designs-carbon-forms">Carbon Forms</h3>
+                    <p id="designs-carbon-forms-desc">فۆرمە کاربۆنە نەبۆکان</p>
+                    <a href="https://drive.google.com/file/d/1q5pit8SjZq5LFPObF9DOcrkqrQ0ltw6Z/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Clocks -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-pink-500">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 id="designs-clocks">Clocks</h3>
+                    <p id="designs-clocks-desc">کاتژمێری دیواری و مێزی ڕیکلامی</p>
+                    <a href="https://drive.google.com/file/d/1fupIzt8EhSXkrumOZyhulOYuxR7UWc-O/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Clothing & Accessories -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-teal-500">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3 id="designs-clothing">Clothing & Accessories</h3>
+                    <p id="designs-clothing-desc">جل و بەرگ و جەمدانە ڕیکلامیەکان</p>
+                    <a href="https://drive.google.com/file/d/1P6JUyBx3hAhiwcO-QDvLuy_bZhnneHWX/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Custom Pens -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-orange-500">
+                        <i class="fas fa-pen"></i>
+                    </div>
+                    <h3 id="designs-pens">Custom Pens</h3>
+                    <p id="designs-pens-desc">قەڵەمە کراوەسازکراو و تایبەتەکان</p>
+                    <a href="https://drive.google.com/file/d/1on5HNNkIFFhIqXH3iE78I3Q-Ubzz0rAL/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Desk Sets -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-cyan-500">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3 id="designs-desk-sets">Desk Sets</h3>
+                    <p id="designs-desk-sets-desc">کۆمەڵەی میزی کار و سەرسێخ</p>
+                    <a href="https://drive.google.com/file/d/1oLAMDWPVnJcdBmwAMxoWCILLxQXdR6HM/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Gift Baskets -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-rose-500">
+                        <i class="fas fa-door-closed"></i>
+                    </div>
+                    <h3 id="designs-gift-baskets">Door Hanger</h3>
+                    <p id="designs-gift-baskets-desc">هەڵواسراوی دەرگا</p>
+                    <a href="https://drive.google.com/file/d/1Yt1fLJBsxwJBNhGezcNV_zdWC9mtG7pg/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Envelopes -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-violet-500">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 id="designs-envelopes">Envelopes</h3>
+                    <p id="designs-envelopes-desc">زەرفی نامە</p>
+                    <a href="https://drive.google.com/file/d/19qEOHeL0I0V_JRVj5W_PpGh82IUyw35j/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Flags -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-emerald-500">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h3 id="designs-flags">Flags</h3>
+                    <p id="designs-flags-desc">ئاڵای تایبەتمەند</p>
+                    <a href="https://drive.google.com/file/d/1l9mF1-aLTcnm7OUedKCQ3J1zepC9RLFX/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Flyers -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-sky-500">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <h3 id="designs-flyers">Flyers</h3>
+                    <p id="designs-flyers-desc">فڵایەری ڕیکلامی بە کوالێتی بەرز</p>
+                    <a href="https://drive.google.com/file/d/1SAWcRzThPoWHA2SwBaLQFZR-pMl9NDiW/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Folders -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-amber-500">
+                        <i class="fas fa-folder"></i>
+                    </div>
+                    <h3 id="designs-folders">Folders</h3>
+                    <p id="designs-folders-desc">فۆڵدەری بەڕگ و بە تایبەت</p>
+                    <a href="https://drive.google.com/file/d/102LGQRfdsAJYpy0wb1Vhhd4bZKSDbrXT/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Keychains -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-slate-500">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3 id="designs-keychains">Keychains</h3>
+                    <p id="designs-keychains-desc">بەرھەمە بانگەشەییەکان  زنجیرە کلیلیەکان</p>
+                    <a href="https://drive.google.com/file/d/1ehz-yWB9kVDfy4thR-s_0DDT_4KLiHFf/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Labels & Stickers -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-lime-500">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3 id="designs-labels">Labels & Stickers</h3>
+                    <p id="designs-labels-desc">لێیبڵ و ستیكەری جۆراو جۆر</p>
+                    <a href="https://drive.google.com/file/d/1efATS2UH4wQcKMtyDfKqMZVmHvtFzPBJ/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Letterheads -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-stone-500">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <h3 id="designs-letterheads">Letterheads</h3>
+                    <p id="designs-letterheads-desc">سەرنامەی فەرمی و تایبەت</p>
+                    <a href="https://drive.google.com/file/d/1S-6nUYLh1QZylPXJ2cM9GB0lB-CMiUXY/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Notepads -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-orange-600">
+                        <i class="fas fa-sticky-note"></i>
+                    </div>
+                    <h3 id="designs-notepads">Notepads</h3>
+                    <p id="designs-notepads-desc">نۆتبڵۆک و دفاترە بچووکەکان</p>
+                    <a href="https://drive.google.com/file/d/10KBC8ZZr8xM4LfRo9Qys78eqhohx9ktv/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Notebooks -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-blue-600">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 id="designs-notebooks">Notebooks</h3>
+                    <p id="designs-notebooks-desc">نوتبووکی کوردی و ئینگلیزی</p>
+                    <a href="https://drive.google.com/file/d/1_laURiFzrtW7hMIV5MyEDBq7SbQ_dTrK/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Small Notepads -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-green-600">
+                        <i class="fas fa-note-sticky"></i>
+                    </div>
+                    <h3 id="designs-small-notepads">Small Notepads</h3>
+                    <p id="designs-small-notepads-desc">نوتپادی بچووک و گەورە</p>
+                    <a href="https://drive.google.com/file/d/1vEviCDuQiKgdXfhfeOu6ZWvHje4Mx9RS/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Our Services -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-purple-600">
+                        <i class="fas fa-print"></i>
+                    </div>
+                    <h3 id="designs-our-services">Our Services</h3>
+                    <p id="designs-our-services-desc">هەموو خزمەتگوزارییە چاپکردنەکان</p>
+                    <a href="https://drive.google.com/file/d/1gP9FH19XHwvRNgqZEIK_7nyshXYdJnyY/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Advertising Food Products -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-yellow-600">
+                        <i class="fas fa-mug-hot"></i>
+                    </div>
+                    <h3 id="designs-food-products">Advertising Food Products</h3>
+                    <p id="designs-food-products-desc">بەرهەمە خواردنەوەیی ڕیکلامی</p>
+                    <a href="https://drive.google.com/file/d/1-8fj6Vq6Bj-SEr6SOJHe0PLnt54FlME6/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Advertising Gift Items -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-red-600">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3 id="designs-gift-items">Advertising Gift Items</h3>
+                    <p id="designs-gift-items-desc">دۆرەفەری ڕیکلامی و هەنگاو</p>
+                    <a href="https://drive.google.com/file/d/1Xq2Qo8ki_-VydifBqQGxyVFb4CbpqZSH/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Advertising Products -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-indigo-600">
+                        <i class="fas fa-bag-shopping"></i>
+                    </div>
+                    <h3 id="designs-advertising-products">Advertising Products</h3>
+                    <p id="designs-advertising-products-desc">هەموو بەرهەمە ڕیکلامیەکان</p>
+                    <a href="https://drive.google.com/file/d/1b-wIDqAt2GNqRTPKyk4TrA0I9d1ZgPTm/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Advertising Technology -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-cyan-600">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3 id="designs-technology">Advertising Technology</h3>
+                    <p id="designs-technology-desc">تەکنەلۆژیای نوێ بۆ ڕیکلام</p>
+                    <a href="https://drive.google.com/file/d/1shYlLgp6vwHABdpR-SqtVADVzrv_fOeH/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Safety Items -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-orange-700">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 id="designs-safety-items">Safety Items</h3>
+                    <p id="designs-safety-items-desc">کێش و بەرهەمە سەلامەتیەکان</p>
+                    <a href="https://drive.google.com/file/d/11GFilhUGrZ5xAtTBWpJ-wmis8UWzn489/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+                
+                <!-- Signs & Banners -->
+                <div class="design-card kurdish-text">
+                    <div class="design-icon bg-blue-700">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h3 id="designs-signs-banners">Signs & Banners</h3>
+                    <p id="designs-signs-banners-desc">نیشانە و بانەری گەورە</p>
+                    <a href="https://drive.google.com/file/d/16CwaWsuNh7jU7LKNCB2pyhtAHJTKLe9B/view?usp=sharing" target="_blank" class="design-link">
+                        <i class=" "></i>Click
+                    </a>
+                </div>
+              
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 kurdish-text" id="about-title">
+                    دەربارەی ئێمە
+                </h2>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gray-50 rounded-2xl p-8 md:p-12 shadow-lg">
+                    <div class="text-center mb-8">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6DQ8wsfNFwfoVN7B-MEyetqDTMsV6xk1gKuwJn85bDl2kur5f3ZVuMgfQekbE8arTQu_xQSsuoVmFcOUyjaFG4RVwOvG0_kqAEb-V3MgYRzxjo7c-8mE1zqjYrN7gpdmhdDtLQ8uq2Uk_WAa1imn-XtBkTZlXAhhZJZ4Ii2qJEWoFs0jgDdXDNv31e2J2/s2332/rix%20logo.png" 
+                             alt="Rix Printing" class="h-24 w-24 mx-auto ">
+                    </div>
+                    
+                    <div class="space-y-6 kurdish-text">
+                        <p class="text-lg text-gray-700 leading-relaxed" id="about-desc1">
+ئم ل چاپخانی ریکس، ب شانازیوە خزمتگوزاری چاپمنی پشکش ب کیارە ڕزدارەکاان دەکین. بۆ ماوەی چندین سا، پشتگیری کیارەکااان کردووە ل بوارە جیاجیاکانی چاپمنیدا، وە هونداوە ک ئو پڕی توانای خۆمان بخین گر بۆ پشکش کردنی خزمتگۆزارییکانی چاپی گشتی ب کوالیتیکی برز و پشکوتوو                        </p>
+                        
+
+                        </p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-6 mt-12">
+                        <div class="text-center">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-shield-alt text-2xl text-blue-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2 kurdish-text" id="about-trust">متمانەپێکراوی</h3>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-award text-2xl text-green-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2 kurdish-text" id="about-quality">کوالێتی</h3>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-bolt text-2xl text-yellow-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2 kurdish-text" id="about-speed">خێرایی</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 kurdish-text" id="partners-title">
+                   خزمه تگوزاریه کانمان
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto kurdish-text" id="partners-subtitle">
+                    کڕیارەکانمان سەرچاوەی هێز و سەرکەوتنمانن
+                </p>
+            </div>
+            
+            <!-- Partners Logos Grid -->
+            <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 items-center justify-items-center">
+            
+            <div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhHELFNl0juvwnQN_h5wW0OOi4HDLMVMTU_-mGew40NzA6p02xtsSB5OpSCnyWcFZtwNgwO9nQ9rWtAc0HaJha_Ccwo0b7Hq4JFt-Mfnlqdm3-vZwINlTRV5-68rp_TkwnMFLbCEnKJEQ_Xdq-ypAWLxABhZR73pQvb4EOZv1v0lmKUAsVNEe2gZCIBZU7C/s1265/Artboard%2017%20copy%2010.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div>
+
+            <div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjf0daFT-ecVyM_uVmzP3d4shAQtZn2eWqcJ0gpXF_1GljDl9shxzoHJ_50EpPQXIFf53BkBJOPSEauRFkLP2R_jzQmUqkxkBpeRRFuJRXYvtxtrQ5__NscFrutBuQa4J7oNP0IsacLzJZ5Sj9CmeoCUinwjqbcKEPRsWraQMG2T5HnlJSeD3byCpZy4l2e/s1265/Artboard%2017%20copy%2014.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div>
+
+                
+            <div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjW8Ofzp0SiSt-R3Txqsm5_TY94Mgur4_cEDt5Pds3xsa-Frw89EujiU_5f1x1fhv9lTANOdYaH0TpWdhzEEuiPnMr8hvBUvU3UBtnfM616G5HWBpKdArOYWpR0YRS8uv9ZAg3WAIXrDk1fs2irubAbudnifvyyI1FYK-rcLRfEqLYE34xxN5vdOJ5zxWAV/s1265/Artboard%2017%20copy%2016.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div>
+
+                       
+            <div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEnaIATWzTBeuejkb1rYlVfdyfl1ea8591jZUxElKvxfCQhH95IV3gvL0ap6HAMTyf2cS7xjvJM1GfpDWai39f-W2ZfaDCQOpc3qaE4U5k7fO5ifph19kFm9a-PZGgGU-oF2U5URKFFqB_knCQxOQjq4NoSpoAdovCHy8F3VMxvpz3BRKfYq7siF0CJoBQ/s1499/Artboard%201%20copy%208.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div>        
+                
+                 <div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-9LYiP0CQITaQu7P6eFYx0mCL0w6xT5nD7sTCo_x49G-OGXZd4nMY3OyC4WlnCTwZ5EypOnhtq9-WcRQqLTYcd-FA_4MxznGe6TB75dTsQINddR1GnbhPrsyDFnQJApBb182nidRhhAzxom9qWI5rwmiuBY8aALHDNCpUUlmw9f9wD92ckLx_sA1DITYi/s1500/Artboard%201%20copy%2010.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div>        
+  
+             <div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjGU3yqs2Ulv2v-ggs8510YAM92HNkjoYeucBS6jkRjc0gaiN8ml8RYRyKxejtuYrpV9s8JMCXvUhhzrRYXqrBpg0ALDpCFbY4ezQsZFWF6Uty5MaxuKaVqFbDAHe3SUmgFcvKyb0b-JQS1qX4DnFrjqiyzEI9bZ6X5vK8cneAXTEjkjODV59lWczfW5Szy/s1499/Artboard%201.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div>        
+
+<div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgijvKoKZMN8diRdZFedvPVdh1U-cVEUdGaaKp193e1_wi83x6OlQ9WO13tZ8GBFT8ykx9ZoS728lzVhPwk4ix9KDy5vxVvH80fcNPQiI6ymuJ-Xnr1RS7Wm2qULropZgSuRC7lU_5qAjOEPYo2bKMyKuN9rhg9ZnyZnNmR9bIOlocflLYuJOtZPDR9rQtx/s1499/Artboard%201%20copy%2011.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div>        
+
+<div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhK8rop12XYYUAoQMHY_6-x0fNgpD9aZVMLCQECIPFItGVdB11m_KuXFt1amM-pkeRhwKgYMGom79C-yJxnAHD3z6iSj2abgv9FzuisbjyBXiuJys2hCUwGEYi6knzcwB-nQciZFC_VKwMwEjkiBOzq6ZAphwNchVHjdMx-HPMkFr-oEyVlBZtFd22MQX5z/s1500/Artboard%201%20copy%2012.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div>        
+
+<div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjgt8eoUSIRzt3MWY4boyeCavBWB2b1OM-GCx3LJt8qPnRjuTZgOHXTEPaM05FYHB00swFCN0GKTbZZYMxgJoqJMnBLWeIvBSSw6-kCED83EGmt6Wc0F6o2vBM4NwgbH-YMe4Xy4Adlz3416Xey2uVOqJnBQnQ555K2y2r5km8kgfvTn4wPMDNhiP00uKa4/s1265/Artboard%2017.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div>        
+
+<div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyippkkS5t4qrl-d9P2Cg2PypTY-zn82ej0PsL7_2WR6mavgodOeYqJsMgQgTjmbLmtnGtMq0QbjvKBw7ib64JcarAnUxWiyg7nzQQDbTB_TQZo5ajEaJH3bjqUhy943pMCWltYm673hVXI7aPJfY95coH_eNkxELXzwyQ2Nqy0P5lBVQ6seamY-GGfP0D/s1499/Artboard%201%20copy%2013.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div> 
+
+<div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgtLyLJ3ctZQEsWO8X-bosA-c8xr0bGVGIRJBLvDqG_7gN51r41JxcvXMDr0pf39AdvRw7Xed3_u4dbtJBoMRwyjmkTXyKK6K_ayIksm0oxFmTGLecaLqBaQ5osfIsuLc5EJ-Sf9Hqibn7QCSRG33c0rp7ZE0L5A0DGNZbuyUgdlhI7ke2kjXPOdcNAcosV/s1264/Artboard%2017%20copy.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div> 
+
+<div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiXjtFIt7BkKucSSqD_s48AJ9fpKgvDuChZjNTSgscUiy5nLpZY4Euzd5IUqZjCdI4qfwOLk4LFXn-gzb5Obf58vQ_30YlESISJCP3o8hSegLdrl_bTh5kenlRc-Msq31V1e1F3RKMAKsn7U0nTAH3UyTLrez-M6SQaXEH4knvxVFn2eB26s9wWlQ6anHi1/s1265/Artboard%2017%20copy%205.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div> 
+
+<div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgH6O14CguefADxXTW7NKRlscbiCuOmPHuYRGTx0MDzTvFxNZW9jOnEcHgSrbN0mNeY_CvWX-kNZV0ZdXmEe7Cc36io2qYMjTyqlcgxMXGmbLlYEcr1h8uu-xWZqyshHUkkm4bsCWlnYihsGSoiS-AGtdzHKhOHah14PAcvJc_Dw249yUlcae1GUs7wq74x/s1264/Artboard%2017%20copy%204.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div> 
+
+<div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhRR92i3KIhktJHaWtlPSKQxDXNlo-C4AnAJxgRP7sSERA1aBlpFjSoIjVQe6YJ7D_c8xGdwyo8S1XNc1LHSAXTtqSjSyin2hQiq7-WNae6l8Br2-kyVp2NpypYBtVI9DgKjbAocgyovYWCvtS8tQbekcgKSUkqk7g0JCKRcpHFRgzt7xc9ISzJe4Jjk8yz/s1265/Artboard%2017%20copy%2011.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div> 
+
+<div class="group transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhHPCmGoCYD_niQ3CDzhEapkQFsupGvNu1QKiM5wz_T5hhHLD0lC11_Ro73tuJa1KGDnbET5fO0us38Jip3d6XOoUsbyBmQF27NM7iLSMyYJkBKX6shETOrVvVBMHsUUqPbD_bkFG9h2upexGJBPoYhFSaGxFD99mZA-zLrOsX5gvi6YnoPJme0fkq4-L3/s1265/Artboard%2017%20copy%2015.png" 
+                     alt="Partner 1" 
+                     class="h-13 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+            </div> 
+
+            
+    </section>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<section id="contact" class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 kurdish-text" id="contact-title">
+                پەیوەندی لەگەڵمان
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto kurdish-text" id="contact-subtitle">
+                ئامادەیین بۆ یارمەتی دانی براندەکەت
+            </p>
+        </div>
+        
+        <div class="grid lg:grid-cols-2 gap-12">
+            
+            <div class="contact-form">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 kurdish-text" id="contact-form-title">
+                    فۆرمی پەیوەندی
+                </h3>
+                
+                <form id="contactForm">
+                    <div class="form-group mb-4">
+                        <label class="form-label kurdish-text" id="contact-form-name">ناو</label>
+                        <input type="text" name="user_name" class="form-input w-full px-4 py-2 border rounded" required>
+                    </div>
+                    
+                    <div class="form-group mb-4">
+                        <label class="form-label kurdish-text" id="contact-form-phone">ژمارەی مۆبایل</label>
+                        <input type="tel" name="user_phone" class="form-input w-full px-4 py-2 border rounded" required>
+                    </div>
+                    
+                    <div class="form-group mb-4">
+                        <label class="form-label kurdish-text" id="contact-form-description">وشەسەرەکی داواکەت</label>
+                        <textarea name="message" class="form-input form-textarea w-full px-4 py-2 border rounded" rows="6" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn kurdish-text bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded" id="contact-form-submit">
+                        ناردن
+                    </button>
+                </form>
+                <p id="contact-feedback" class="mt-4 text-sm text-green-600 hidden"></p>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 kurdish-text" id="contact-info-title">
+                    زانیاری پەیوەندی
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-phone text-xl"></i>
+                        </div>
+                        <div class="contact-info-content">
+                            <h4 class="kurdish-text">07506151617</h4>
+                            <p class="kurdish-text">ژمارەی مۆبایل یەکەم</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </div>
+                        <div class="contact-info-content">
+                            <h4>info@rixprinting.com</h4>
+                            <p class="kurdish-text">ئیمەیڵ</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-map-marker-alt text-xl"></i>
+                        </div>
+                        <div class="contact-info-content">
+                            <h4 class="kurdish-text">بەرکە - پلەی ١٥٠م پلە سەرەکی، هەولێر، عێراق</h4>
+                            <p class="kurdish-text">ناونیشان</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8">
+                    <div class="w-full h-64 rounded-lg overflow-hidden">
+                        <iframe 
+                            src="https://maps.google.com/maps?q=36.295993684256736, 44.0182026457609&hl=es;z=14&output=embed" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <a href="https://maps.app.goo.gl/1iVCpGPJhzycWKf48" 
+                           target="_blank" 
+                           class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors kurdish-text" 
+                           id="view-map-btn">
+                            بینینی شوێن لەسەر نەخشە
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</section>
 
-    <!-- Main Content Container for Kurdish (محتوى الموقع باللغة الكردية) -->
-    <div id="kurdish-content" class="min-h-screen flex flex-col items-center hidden kurdish-font">
-        <!-- Header Section - Kurdish (قسم الرأس - الكردية) -->
-        <header class="w-full header-bg shadow-sm py-4">
-            <div class="container flex flex-col sm:flex-row items-center justify-between px-4">
-                <div class="flex items-center space-x-4 mb-4 sm:mb-0">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6DQ8wsfNFwfoVN7B-MEyetqDTMsV6xk1gKuwJn85bDl2kur5f3ZVuMgfQekbE8arTQu_xQSsuoVmFcOUyjaFG4RVwOvG0_kqAEb-V3MgYRzxjo7c-8mE1zqjYrN7gpdmhdDtLQ8uq2Uk_WAa1imn-XtBkTZlXAhhZJZ4Ii2qJEWoFs0jgDdXDNv31e2J2/s320/rix%20logo.png" alt="Rix Printing Logo" class="logo-img">
-                    <h1 class="text-3xl font-extrabold text-gray-800">Rix Printing</h1>
-                </div>
-                <nav class="flex-grow flex justify-end items-center space-x-6">
-                    <ul class="flex space-x-4 text-lg hidden md:flex">
-                        <li><a href="#services-ckb" class="nav-link">خزمەتگوزارییەکان</a></li>
-                        <li><a href="#about-us-ckb" class="nav-link">دەربارەی ئێمە</a></li>
-                        <li><a href="#main-contact-ckb" class="nav-link">پەیوەندی</a></li>
-                        <li><a href="#" class="nav-link">بلاگ</a></li>
-                    </ul>
-                    <div class="flex items-center space-x-4">
-                        <a href="https://api.whatsapp.com/send/?phone=9647504222282&text&type=phone_number&app_absent=0" target="_blank" class="btn-primary hidden md:block">سەردان</a>
-                    </div>
-                </nav>
-            </div>
-        </header>
+<!-- Footer -->
+<footer dir="rtl" class="bg-red-900 text-white pt-16 pb-10">
+    <div class="container mx-auto px-6">
 
-        <!-- Hero Section - Kurdish (قسم البطل - الكردية) -->
-        <section class="hero-section w-full">
-            <div class="container grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="text-left">
-                    <h2 class="section-heading mb-4">چاپخانەی ریکس بۆ چاپەمەنی گشتی</h2>
-                    <p class="section-subheading">ئێمە یارمەتی براندەکان دەدەین بۆ دروستکردنی چاپی جیاواز و سەرنجڕاکێش.</p>
-                    <div class="flex flex-wrap gap-4 mb-8">
-                        <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium">متمانە</span>
-                        <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium">کواڵیتی</span>
-                        <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium">خێرایی</span>
-                    </div>
-                    <a href="https://api.whatsapp.com/send/?phone=9647504222282&text&type=phone_number&app_absent=0" target="_blank" class="btn-primary">دەستپێبکە</a>
-                </div>
-                <div class="hero-images-grid">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj73MeowExFx5gACMLN2mUwAixaV9SJ5gyH7Of2CX-nYzbYBYH4nlKKN_BmYk-T5YT68bjaLyU3u0fEZAhl1at2qJCpmop12iukqEtpgKyFVauA2kpOg5gwua1_uAOtdpCUPjrfM8J5yWynPvduNms-dSl_bVgqAVzAh-55hV1FIQ9CpP4aS8ERxV2fSeMq/s600/1111%D8%AB.jpg" alt="Printing Service 1">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEibm759yBtbSwMT53VwF6_0uGC77Fp6xmii9rUFM-e4liedkn2LBTkALRL7BbTk5HsdVtAj1j7j3w-RFv4rJgjKlvdGFYkxpLw5XCzzJ53SzRmnok8SzBXtFkkh1vR6HXgJEVZmAhxIvUHWmIe5H4vlHdD_SWcyCrGvaSaaXi5a9ORyIJNuI6vhyVb5jgQp/s300/357%D8%B95%D8%B9.jpg" alt="Printing Service 2">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEit9gM-IC2-AuX4QmN9ZWsmmo5m3E2BWSpTJtd_z_GIwKxapC6iPa8KuFRrWI6UL1q7KSZgJBGjIaclj619azQky_hlKAEF6-mHNdDtfW9DEvQw2j8SWV_7Y6hEKVjl0QYE5CpsWr8XnnkD0IEedhifksdx1MxqJu8_n0Ki7jaU3ZbTymvLOzRQCqheIIoo/s300/34634576.jpg" alt="Printing Service 3">
-                </div>
-            </div>
-        </section>
+        <!-- GRID -->
+        <div class="grid md:grid-cols-3 gap-12 text-center md:text-right mb-14">
 
-        <div class="my-16"></div>
+            <!-- Logo + Text -->
+            <div>
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjuGFmtdVXoORuKkxudyuOmD3c394i7eRf8GIyQOfhG7QMeKxrqv8q7Vo6lnwaTrn7CoZnil3z148S7WV7qfQ_dLgDz6yy7wmZv4SFlrQjExqYnWAkK2OB4wXDYPqzzVp-_IthY4TtahrHUBE-7ZM2Ew7WAt7IolbQVMbF3RclAwfUMcyVVEdXnywgcQuQ6/s2332/rix%20logo.png" 
+                     alt="Rix Printing" 
+                     class="mx-auto md:mx-0 h-16 w-auto drop-shadow-lg">
 
-        <!-- Our Services Section - Kurdish -->
-        <section id="services-ckb" class="w-full py-16 px-4 bg-white">
-            <div class="container text-center">
-                <h2 class="section-heading mb-4">خزمەتگوزارییەکانمان</h2>
-                <p class="section-subheading">چاپخانەی ڕیکس ئەم خزمەتگوزارییانە پێشکەش دەکات</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                    <div class="quality-card">
-                        <h3 class="text-xl font-semibold mb-3 text-gray-800">جۆرەکانی چاپکردن:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-print"></i> چاپی ئۆفسێت</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> چاپی دیجیتال</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> حەرف بارز</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> UV DTF چاپی</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> DTF چاپی</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> چاپی تامپۆ</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> چاپی لێزەر</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> چاپی حەراری</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> چاپی سکڕین</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> چاپی دروومان</li>
+                <h3 class="text-2xl font-bold mt-4 mb-3 text-red-100 tracking-wide">
+                    Rix Printing
+                </h3>
 
-                        </ul>
-                    </div>
-                    <div class="quality-card">
-                        <h3 class="text-xl font-semibold mb-3 text-gray-800">چاپکردنی پۆستەر و بانەر:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-palette"></i> دیزاین و چاپ</li>
-                            <li class="service-list-item"><i class="fas fa-paint-roller"></i> چاپکردنی قەبارە گەورە</li>
-                            <li class="service-list-item"><i class="fas fa-check-double"></i> کوالێتی بەرز</li>
-                        </ul>
-                        <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800">چاپکردنی کتێب و گۆڤار:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-book"></i> دیزاین و قەبارەی جیاواز</li>
-                            <li class="service-list-item"><i class="fas fa-file-alt"></i> چاپکردنی ناوەوە و بەرگ</li>
-                        </ul>
-                    </div>
-                    <div class="quality-card">
-                        <h3 class="text-xl font-semibold mb-3 text-gray-800">چاپکردنی کارتی بانگهێشت و بزنس:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-id-card"></i> دیزاینی تایبەت</li>
-                            <li class="service-list-item"><i class="fas fa-cut"></i> بڕینی ورد</li>
-                        </ul>
-                        <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800">چاپکردنی جل و بەرگ:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-tshirt"></i> دروومان و چاپکردنی ڕاستەوخۆ</li>
-                            <li class="service-list-item"><i class="fas fa-palette"></i> ڕەنگ و دیزاینی جیاواز</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <hr class="section-divider">
-
-        <!-- Custom Printing Section - Kurdish -->
-        <section class="w-full py-16 px-4 bg-white">
-            <div class="container text-center">
-                <h2 class="section-heading">چاپکردنی کارتۆنی تایبەت بە کڕیار</h2>
-                <p class="section-subheading">چاپخانەی ڕیکس ڕێگەت پێدەدات چاپکراوی تایبەت بە براندەکەت دیزاین بکەیت و چاپی بکەیت.</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-                    <div class="feature-card">
-                        <img src="https://img1.wsimg.com/isteam/stock/2650" alt="Design Printing 1">
-                        <h4 class="text-xl font-semibold mb-2 text-gray-800">قۆناغی یەکەم: دیزاین و چاپکردن</h4>
-                        <p class="text-gray-600">هەڵبژاردنی جۆری دیزاین و ماددەکان بۆ چاپکراوی دیاریکراو.</p>
-                    </div>
-                    <div class="feature-card">
-                        <img src="https://www.sprinter.com.au/wp-content/uploads/2019/07/Large_format_digital_printer.jpg" alt="Sample Printing 2">
-                        <h4 class="text-xl font-semibold mb-2 text-gray-800">قۆناغی دووەم: نموونە و پەسەندکردن</h4>
-                        <p class="text-gray-600">پێشکەشکردنی نموونە بۆ پێداچوونەوە و پەسەندکردنی کۆتایی.</p>
-                    </div>
-                    <div class="feature-card">
-                        <img src="https://www.airmark.com/cdn/shop/articles/BlogPost-3_1.jpg?v=1710262485" alt="Print and Ship 3">
-                        <h4 class="text-xl font-semibold mb-2 text-gray-800">قۆناغی سێیەم: چاپکردن و گەیاندن</h4>
-                        <p class="text-gray-600">دەستپێکردنی پڕۆسەی چاپ و گەیاندن بە کوالێتی بەرز.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- Your Custom Printing Section - Kurdish -->
-        <section class="w-full py-16 px-4 bg-gray-50">
-            <div class="container text-center">
-                <h2 class="section-heading">چاپکردنی تایبەت بە کوالێتی بەرز</h2>
-                <p class="section-subheading">لە Rix Printing، ئێمە بژاردەی چاپکردنی زۆر بە کوالێتی بەرز پێشکەش دەکەین.</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
-                    <div class="product-card">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiC62nFf4DlIiRNm-Bmmb73DfF_tOaipIAKbjt0xy8scB4uLbZQ2hAsoqETEvDEsd9SzMw7aIp29UPFeh61P4e_ls1n4tvJvthJ3ijbUyN94aHDTGcRC-SMBAt6qJiJ-FDXvRiuZZY50kzDDrocrW4uoMZFL21j6kZ8_JM5Tz0vr7EnLnqXw3PCtBX3IhbJ/s1709/%D8%B5%D8%B3%D8%AB%D9%82%D8%A7%D9%82.jpg" alt="Paper Printing">
-                        <span class="product-tag">کاغەز</span>
-                        <h5 class="text-lg font-semibold mt-2">چاپکردنی کاغەز</h5>
-                    </div>
-                    <div class="product-card">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8F2IqxC5T8sr1iWTbfHLHA2tThUybkmzjAES7WVixZlPN3wKeCxXX0X993YK1j9ssymjuTYOLC9u-6ouJyJZEiRnMx2OHZL9Mj2DF9FcJcnR94d_yQLOwEVE9n0LwZmDj_Nco61JBh3oujWDDybGgaDlW-iBCMpLO_Mve7lIw25OWvKSn9wueFZi5gQgO/s1709/%D8%B4%D8%AB%D8%A7.jpg" alt="Custom Design Printing">
-                        <span class="product-tag">دیزاین</span>
-                        <h5 class="text-lg font-semibold mt-2">چاپکردنی دیزاینی تایبەت</h5>
-                    </div>
-                    <div class="product-card">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgixePvfpYC4mk_wBsWI4MD384VxBB0gkdtrQPk3TgNJ1rx3fYf0p4OOwYEGrU49j0lP8OsD4t_WlqQ4l_2W92yrp1n1O_xh_7Wb6RX7UiamfFgbjOB9KYtMjrDF32HkIuvcao4ewvtnl9_LfEMjv6EhMyF_8FdxzJa3CvQKs3MOvpsrVPmxsejRJNZ2ktm/s1709/%D8%B4%D8%B3%D8%AB%D8%A7%D9%84%D8%B4%D8%B3%D8%AB%D8%A7%D9%84.jpg" alt="Premium Printing">
-                        <span class="product-tag">پریمیم</span>
-                        <h5 class="text-lg font-semibold mt-2">چاپکراوی کوالێتی بەرز</h5>
-                    </div>
-                    <div class="product-card">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEitUyzTqUdM8OIw4J7o3znmrwLnquTUuo821cp758GECx1bUhKefBsiRXiQyDMVOw6tjUHwfiZ7WXP0amTev1cOMZ1fcn01rHg_Fu6NKy504k2mXIWXntrR3XGhTtt-9w5mQb59P5DQdsUbo6rYaQsI1CofRrOwkFz6K48LMKyykC15BfeVIYyGLSfUu519/s300/4235.jpg" alt="Cosmetic Printing">
-                        <span class="product-tag">ئاڵاکان</span>
-                        <h5 class="text-lg font-semibold mt-2">چاپکردنی ئاڵاکان</h5>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- About Us Section - Kurdish -->
-        <section id="about-us-ckb" class="w-full py-16 px-4 bg-white">
-            <div class="container text-center">
-                <h2 class="section-heading mb-4">دەربارەی ئێمە</h2>
-                <p class="section-subheading">
-                    ئێمە، لە چاپخانەی ڕیکس، شانازی دەکەین بە پێشکەشکردنی خزمەتگوزارییەکانی چاپ بە کڕیارە بەڕێزەکانمان. 
-                    بۆ چەندین ساڵ، پشتگیری کڕیارەکانمان کردووە لە بوارە جیاوازەکانی چاپدا، بە هەوڵدان بۆ بەکارهێنانی تەواوی تواناکانمان بۆ پێشکەشکردنی خزمەتگوزاری چاپکردنی گشتیی کوالێتی بەرز و پێشکەوتوو.
-                </p>
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">بینینمان:</h3>
-                <div class="flex justify-center flex-wrap gap-4 text-xl font-semibold text-red-600">
-                    <span>متمانەپێکراوی</span>
-                    <span>•</span>
-                    <span>کوالێتی</span>
-                    <span>•</span>
-                    <span>خێرایی</span>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- See how to succeed with printing section - Kurdish -->
-        <section class="video-section w-full">
-            <div class="video-overlay"></div>
-            <div class="container video-content text-center">
-                <h2 class="text-4xl font-extrabold mb-6">فێربە چۆن سەرکەوتوو بیت بە چاپکردن</h2>
-                <p class="text-xl mb-10 text-gray-300 max-w-2xl mx-auto">ئێمە چارەسەری چاپکردنی داهێنەرانە پێشکەش دەکەین کە یارمەتی براندەکان دەدات سەرنجڕاکێش بن.</p>
-                <div class="video-placeholder">
-                    <i class="fas fa-play-circle text-6xl"></i>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- For Our Customers Section - Kurdish -->
-        <section class="w-full py-16 px-4 bg-gray-50">
-            <div class="container text-center">
-                <h2 class="section-heading mb-4">بۆ کڕیارەکانمان</h2>
-                <p class="text-xl mb-6 text-gray-700 max-w-3xl mx-auto">
-                    کڕیارەکانمان سەرچاوەی هێز و سەرکەوتنمانن. متمانە و پشت بەستنتان بە ئێمە هێزێکی گەورەیە لە پاڵنانی گەشە و پێشکەوتنماندا. ئێمە پابەندین بە پێشکەشکردنی خزمەتگوزارییەکی نایاب و بێهاوتا لە هەموو کاتێکدا. ئامانجمان تەنها فرۆشتنی بەرهەم و خزمەتگوزاری نییە، بەڵکو دروستکردنی پەیوەندییەکی متمانەپێکراو و درێژخایەنە لەگەڵ تاک تاکی ئێوە.
+                <p class="text-red-200 leading-relaxed kurdish-text">
+                    چاپخانەیەکی تایبەت بە چاپەمەنی گشتی لە هەرێمی کوردستان
                 </p>
             </div>
-        </section>
 
- <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- Our Partners & Customers Section - Kurdish -->
-        <section class="w-full py-16 px-4 bg-white" lang="ckb" dir="rtl">
-            <div class="container text-center">
-                <h2 class="section-heading mb-8">هاوبەش و کڕیارەکانمان</h2>
-                <!-- Logos Grid -->
-                <div class="client-logo-grid">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiEUFBxVJcok4P2kpiB-mTcof0dvIFacH7jXsO0yRTaWnDHBBQsh7iwYm7oEuAutQN1wWvgGHvzmwKk9WUTCEgUUI7MFHIYBXU8on97RjAzN6734k8piL4e_OKu3t-nTjriJDkH8Az2wpbmoVJxEKNM2Si7sZJfzDyrtsaKqw16-Q1xB6i5Qf_AepfUJ4X2/s1499/Artboard%201%20copy%207.png" alt="شعار العميل 1">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjKTQqufbmg_8CE94hN6bsDdn1Lk0HynTNHIfYTN_t09BamA6y0BtJhv4yBKXBghyphenhypheni1optB6gmREt-SCBDhc18Y7YNzkpumA2KtgUnyzoPg_bjBgzzxL9PLUztUjkz4ErZEA3b9rx86pJ9_zGRmRK8I0q_XRoRJV0jilW07cGLpB5jLFnIYpded8L1fj93D/s1499/Artboard%201%20copy%206.png" alt="شعار العميل 2">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhevA3hQqzM4HcyfLithK_iydTIp8ZbXQSYhpTIXM03eoTgto0my-lZdVsLj-9zEizHpjwgAjH4j8MHZcqRC4341x0XT_SUVVhVsm0yacKrEj6GTWC9nOKoHsOf1jzpUI3DVKa0WcdFR_CoyJoP4hku763TNBi5A1SgQnuwtPEwPfBkZldEzNGdvgk1p9XU/s1500/Artboard%201%20copy%204.png" alt="شعار العميل 3">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjs-EvA_oy6T-Wdqr3jP5_SiF1fh11O-m8UjHaJq7vP788nanHPvqrt47okvgAF9pdg3kesjE3efUhyFijs9PFkmpNN-U07bSbGsSZ7PtM37q8bwSxYc-GG1R7Yy4jzuDpOR8xTjOX3SE2ykjPPaU1QnfR2jjXyL97DquDoOjmpKjOtF2y8lMGJc35tMsJR/s1499/Artboard%201%20copy%203.png" alt="شعار العميل 4">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhK8rop12XYYUAoQMHY_6-x0fNgpD9aZVMLCQECIPFItGVdB11m_KuXFt1amM-pkeRhwKgYMGom79C-yJxnAHD3z6iSj2abgv9FzuisbjyBXiuJys2hCUwGEYi6knzcwB-nQciZFC_VKwMwEjkiBOzq6ZAphwNchVHjdMx-HPMkFr-oEyVlBZtFd22MQX5z/s1500/Artboard%201%20copy%2012.png" alt="شعار العميل 5">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgijvKoKZMN8diRdZFedvPVdh1U-cVEUdGaaKp193e1_wi83x6OlQ9WO13tZ8GBFT8ykx9ZoS728lzVhPwk4ix9KDy5vxVvH80fcNPQiI6ymuJ-Xnr1RS7Wm2qULropZgSuRC7lU_5qAjOEPYo2bKMyKuN9rhg9ZnyZnNmR9bIOlocflLYuJOtZPDR9rQtx/s1499/Artboard%201%20copy%2011.png" alt="شعار العميل 6">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-9LYiP0CQITaQu7P6eFYx0mCL0w6xT5nD7sTCo_x49G-OGXZd4nMY3OyC4WlnCTwZ5EypOnhtq9-WcRQqLTYcd-FA_4MxznGe6TB75dTsQINddR1GnbhPrsyDFnQJApBb182nidRhhAzxom9qWI5rwmiuBY8aALHDNCpUUlmw9f9wD92ckLx_sA1DITYi/s1500/Artboard%201%20copy%2010.png" alt="شعار العميل 7">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLgaWx2me0NNE4KcAsEKuCYQXyAU-SKaWuzCEnPMsRIITS_1K1KiXiHuet6woBMoIP-lz0X1Ei3Ppah5IIV48rUvj8XRLLTGE4aUVxQzrI450DhesA_OT7Yp1yMoKD1ZeQt17FZrDN8h9Pyv4jKPDpeJNOAOVGWeP6RFEw1Dh5aAaxcFsttSU7gQHvT7J0/s1499/Artboard%201%20copy%209.png" alt="شعار العميل 8">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEnaIATWzTBeuejkb1rYlVfdyfl1ea8591jZUxElKvxfCQhH95IV3gvL0ap6HAMTyf2cS7xjvJM1GfpDWai39f-W2ZfaDCQOpc3qaE4U5k7fO5ifph19kFm9a-PZGgGU-oF2U5URKFFqB_knCQxOQjq4NoSpoAdovCHy8F3VMxvpz3BRKfYq7siF0CJoBQ/s1499/Artboard%201%20copy%208.png" alt="شعار العميل 9">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjv7fPTUHurH0cgaI_aS0g8RrN1tQP9APLQK4hkN1T1hiBSCWi6MuVcRcXjXZQauS40Lphhxqzhi0gq8hAYTFmtSSKNVWYvmJdHGaz2C_UY7rmshfa-zNp9cvdnTc7QaQ5_oqCUknLJy022KZTqFblgvyzvtMt8GfGk-bk2Z9KeqSD7Qc-czpN9WvbnxLAp/s1499/Artboard%201%20copy%2015.png" alt="شعار العميل 11">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghh1Z61NcyA9NbwMMWnCcR9TggaeSYfJ0qyn_kPbOkisqY70lRBB-EBaKmFJlJP_9298SD8qGVeco9176OurLOMjXVmfx1rtTGej16RQr8-zs7xS3896Fp5ZtywnWfrE63URw6eJmrZOWRbXDVhDOt6AzlaazVIbtzLmiyPMO42FF1siREL1-5Du8GapiV/s1499/Artboard%201%20copy%2014.png" alt="شعار العميل 12">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyippkkS5t4qrl-d9P2Cg2PypTY-zn82ej0PsL7_2WR6mavgodOeYqJsMgQgTjmbLmtnGtMq0QbjvKBw7ib64JcarAnUxWiyg7nzQQDbTB_TQZo5ajEaJH3bjqUhy943pMCWltYm673hVXI7aPJfY95coH_eNkxELXzwyQ2Nqy0P5lBVQ6seamY-GGfP0D/s1499/Artboard%201%20copy%2013.png" alt="شعار العميل 13">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgtLyLJ3ctZQEsWO8X-bosA-c8xr0bGVGIRJBLvDqG_7gN51r41JxcvXMDr0pf39AdvRw7Xed3_u4dbtJBoMRwyjmkTXyKK6K_ayIksm0oxFmTGLecaLqBaQ5osfIsuLc5EJ-Sf9Hqibn7QCSRG33c0rp7ZE0L5A0DGNZbuyUgdlhI7ke2kjXPOdcNAcosV/s1264/Artboard%2017%20copy.png" alt="شعار العميل 14">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiXjtFIt7BkKucSSqD_s48AJ9fpKgvDuChZjNTSgscUiy5nLpZY4Euzd5IUqZjCdI4qfwOLk4LFXn-gzb5Obf58vQ_30YlESISJCP3o8hSegLdrl_bTh5kenlRc-Msq31V1e1F3RKMAKsn7U0nTAH3UyTLrez-M6SQaXEH4knvxVFn2eB26s9wWlQ6anHi1/s1265/Artboard%2017%20copy%205.png" alt="شعار العميل 15">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgH6O14CguefADxXTW7NKRlscbiCuOmPHuYRGTx0MDzTvFxNZW9jOnEcHgSrbN0mNeY_CvWX-kNZV0ZdXmEe7Cc36io2qYMjTyqlcgxMXGmbLlYEcr1h8uu-xWZqyshHUkkm4bsCWlnYihsGSoiS-AGtdzHKhOHah14PAcvJc_Dw249yUlcae1GUs7wq74x/s1264/Artboard%2017%20copy%204.png" alt="شعار العميل 16">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgZUrMNpECwSB4YiZHj-P9ZBgDgCUVY9IZG-ytUSxgychmmfdPl-WCrRqt2X7Cvm_Tm1Mgb77uQKq2YxVKbcFwcTTNyGb9qyMQKQ2JDR4W8TF5ht08n7ekDaNWLeiKiG7pHwVklDkqkwYuw5oeYLFCrB2ar66-kXAIvroW3ic5XQ1M1_R4lYx6corfzMzMJ/s1265/Artboard%2017%20copy%203.png" alt="شعار العميل 17">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjTZ1rzAo5fS1FgPWld6gl7kQ4LUeU5SZF3K53oGgTI3iIUAcFm_yNnIFwwgFUnIuzYKLOU8WDTRCYLBFQI5gXRVavHeFWKtSHsTLzV8ucs3x3FxPlZq7ywhx6qIOFfdKFPSlbK-1p1175aM3J2C-jUptbGKF9ZzTCoS9utRVTpFFwXEJWDL63Mv14coMVd/s1265/Artboard%2017%20copy%202.png" alt="شعار العميل 18">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgF4UxLCBF1BDi1hP_Pk42Wd780dUTgea6iuykVrcLMoCR7oimdjTJmPfThmigYHRhaXbiZJ1BusSqM-EiD5TyMuih9a-m9i_isyZP50cT7uNW4bm5M14nwtZg0nAJQZK8Eed3sP5vT_DJQFzAO6zmkpGoa6w8dsFUkyGVFYXctoFqzOmQXTSzwR4xBup3_/s1265/Artboard%2017%20copy%2013.png" alt="شعار العميل 19">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgB-FLCwW2aqowrepewc6Z0BxYXdH_0jCCoIq-nCAtWbQywsbOv1Xhj49WTfp6M0sSIOEzQ3JRCX1aMtUoNLNIxigk3WFOxKVABz2IlwqumHiyJuwzK6y1cviJwQSkgXuHUQQxJqYpl-falimGz1s-38o2INWetB_fTI_f4rtsy7udajVWDtCqQlmZbM0Wo/s1265/Artboard%2017%20copy%2012.png" alt="شعار العميل 20">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhRR92i3KIhktJHaWtlPSKQxDXNlo-C4AnAJxgRP7sSERA1aBlpFjSoIjVQe6YJ7D_c8xGdwyo8S1XNc1LHSAXTtqSjSyin2hQiq7-WNae6l8Br2-kyVp2NpypYBtVI9DgKjbAocgyovYWCvtS8tQbekcgKSUkqk7g0JCKRcpHFRgzt7xc9ISzJe4Jjk8yz/s1265/Artboard%2017%20copy%2011.png" alt="شعار العميل 21">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhHELFNl0juvwnQN_h5wW0OOi4HDLMVMTU_-mGew40NzA6p02xtsSB5OpSCnyWcFZtwNgwO9nQ9rWtAc0HaJha_Ccwo0b7Hq4JFt-Mfnlqdm3-vZwINlTRV5-68rp_TkwnMFLbCEnKJEQ_Xdq-ypAWLxABhZR73pQvb4EOZv1v0lmKUAsVNEe2gZCIBZU7C/s1265/Artboard%2017%20copy%2010.png" alt="شعار العميل 22">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3Hw8T3AH3Vtrt8Yxm-dxrj3dQb04F8c0ZBmyq_wTVNqJXwsboPFLrLTmTFOuSuQWpJdvKn5oNNuAFfdHDNKiVUcRz8z6aRxVXQnFrsoGidTgZYDMAGd_M6itUsurDsXE1H_HFN85Je-tHaT_M81F3U2-mJz6uSU4ij7wjo5CuhSX19Fhp08YtpVlUBCMB/s1264/Artboard%2017%20copy%206.png" alt="شعار العميل 23">
-                </div>
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4 tracking-wide text-red-200">
+                    ناڤیگەیشن
+                </h4>
+                <ul class="space-y-3">
+                    <li><a href="#services" class="text-red-100 hover:text-white transition">خزمەتگوزارییەکان</a></li>
+                    <li><a href="#designs" class="text-red-100 hover:text-white transition">دیزاینەکان</a></li>
+                    <li><a href="#partners" class="text-red-100 hover:text-white transition">کڕیارەکان و هاوبەشەکان</a></li>
+                    <li><a href="#contact" class="text-red-100 hover:text-white transition">پەیوەندی</a></li>
+                </ul>
             </div>
-        </section>
 
+            <!-- Social -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4 tracking-wide text-red-200">
+                    پەیوەندیدان
+                </h4>
 
+                <a href="https://www.instagram.com/rix_printing/" 
+                   target="_blank" 
+                   class="inline-flex items-center justify-center gap-3 bg-white text-red-700 px-5 py-3 rounded-full hover:bg-red-50 transition-all shadow-lg mb-4">
+                    <i class="fab fa-instagram text-xl"></i>
+                    <span class="font-medium">@rix_printing</span>
+                </a>
 
-
-<section class="map-section w-full">
-            <div class="container">
-                <h2 class="section-heading mb-4">شوێنی چاپخانەکەمان</h2>
-                <p class="section-subheading">بماندۆزەرەوە لە نەخشەدا.</p>
-                <div class="map-container">
-                    <iframe
-                        src="https://maps.google.com/maps?q=36.296006049345785,44.018319059200046&z=15&output=embed"
-                        width="600"
-                        height="450"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
+                <p class="text-red-200 mt-4 text-sm flex items-center justify-center md:justify-end gap-2">
+                    <i class="fas fa-map-marker-alt"></i>
+                    أربیل – كوردستان – العراق
+                </p>
             </div>
-        </section>
 
-        <!-- Get in Touch Section (Main page) - Kurdish -->
-        <section id="main-contact-ckb" class="w-full py-16 px-4 bg-gray-50">
-            <div class="container text-center">
-                <h2 class="section-heading mb-4">پەیوەندی لەگەڵمان</h2>
-                <p class="section-subheading">بۆ هەر پرسیارێک یان داواکارییەک پەیوەندیمان پێوە بکەن.</p>
-                <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
-                    <form onsubmit="sendContactEmail(event, 'ckb')" class="flex flex-col space-y-4">
-                        <input type="text" id="name-ckb-main" placeholder="ناوت" class="p-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500" required>
-                        <input type="tel" id="phone-ckb-main" placeholder="ژمارەی مۆبایل" class="p-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500" required>
-                        <textarea id="description-ckb-main" placeholder="وەسفێک لەسەر داواکارییەکەت" rows="5" class="p-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500" required></textarea>
-                        <button type="submit" class="bg-red-600 text-white p-3 rounded-md font-semibold hover:bg-red-700 transition">ناردن</button>
-                    </form>
-                </div>
-            </div>
-        </section>
+        </div>
 
-        <hr class="w-full border-t border-gray-200 my-12">
-        
-        <!-- Footer Section - Kurdish (قسم التذييل - الكردية) -->
-        <footer class="w-full bg-gray-800 text-white py-12 mt-auto">
-            <div class="container grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6DQ8wsfNFwfoVN7B-MEyetqDTMsV6xk1gKuwJn85bDl2kur5f3ZVuMgfQekbE8arTQu_xQSsuoVmFcOUyjaFG4RVwOvG0_kqAEb-V3MgYRzxjo7c-8mE1zqjYrN7gpdmhdDtLQ8uq2Uk_WAa1imn-XtBkTZlXAhhZJZ4Ii2qJEWoFs0jgDdXDNv31e2J2/s320/rix%20logo.png" alt="Rix Printing Logo" class="footer-logo">
-                    <p class="text-sm text-gray-400 mb-4">ئێمە خزمەتگوزاری چاپ و دیزاین بە کوالێتی بەرز پێشکەش دەکەین.</p>
-                    <a href="https://www.instagram.com/rix_printing/" target="_blank" class="social-icon-box">
-                        <i class="fab fa-instagram social-icon"></i>
-                        <span>کارەکانمان لە ئینستاگرام ببینن</span>
-                    </a>
-                </div>
-                <div>
-                    <h5 class="footer-heading">زانیاری</h5>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-red-300">دەربارەی ئێمە</a></li>
-                        <li><a href="#" class="hover:text-red-300">خزمەتگوزارییەکان</a></li>
-                        <li><a href="#" class="hover:text-red-300">نرخەکان</a></li>
-                        <li><a href="#" class="hover:text-red-300">پرسیارە باوەکان</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="footer-heading">پەیوەندی</h5>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="tel:+9647506151617" class="hover:text-red-300">07506151617</a></li>
-                        <li><a href="tel:+9647506121314" class="hover:text-red-300">07506121314</a></li>
-                        <li><a href="mailto:info@rixprinting.com" class="hover:text-red-300">info@rixprinting.com</a></li>
-                        <li><span class="text-gray-400">Bahrka - 150m overpass, Erbil, Iraq</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="text-center text-sm text-gray-500 mt-8 border-t border-gray-700 pt-6">
-                <p>&copy; 2025 Rix Printing. هەموو مافەکانی پارێزراون.</p>
-            </div>
-        </footer>
+        <!-- Divider -->
+        <div class="border-t border-red-800 pt-6 text-center md:text-right">
+            <p class="text-red-300 text-sm">
+                &copy; 2024 Rix Printing – هەموو مافەکان پارێزراون.
+            </p>
+        </div>
+
     </div>
-
-    <!-- Main Content Container for Arabic (محتوى الموقع باللغة العربية) -->
-    <div id="arabic-content" class="min-h-screen flex flex-col items-center hidden arabic-font" dir="rtl">
-        <!-- Header Section - Arabic (قسم الرأس - العربية) -->
-        <header class="w-full header-bg shadow-sm py-4">
-            <div class="container flex flex-col sm:flex-row items-center justify-between px-4">
-                <div class="flex items-center space-x-4 mb-4 sm:mb-0">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6DQ8wsfNFwfoVN7B-MEyetqDTMsV6xk1gKuwJn85bDl2kur5f3ZVuMgfQekbE8arTQu_xQSsuoVmFcOUyjaFG4RVwOvG0_kqAEb-V3MgYRzxjo7c-8mE1zqjYrN7gpdmhdDtLQ8uq2Uk_WAa1imn-XtBkTZlXAhhZJZ4Ii2qJEWoFs0jgDdXDNv31e2J2/s320/rix%20logo.png" alt="Rix Printing Logo" class="logo-img">
-                    <h1 class="text-3xl font-extrabold text-gray-800">Rix Printing</h1>
-                </div>
-                <nav class="flex-grow flex justify-end items-center space-x-6">
-                    <ul class="flex space-x-4 text-lg hidden md:flex">
-                        <li><a href="#services-ar" class="nav-link">الخدمات</a></li>
-                        <li><a href="#about-us-ar" class="nav-link">من نحن</a></li>
-                        <li><a href="#main-contact-ar" class="nav-link">اتصل بنا</a></li>
-                        <li><a href="#" class="nav-link">المدونة</a></li>
-                    </ul>
-                    <div class="flex items-center space-x-4">
-                        <a href="https://api.whatsapp.com/send/?phone=9647504222282&text&type=phone_number&app_absent=0" target="_blank" class="btn-primary hidden md:block">زيارة</a>
-                    </div>
-                </nav>
-            </div>
-        </header>
-
-        <!-- Hero Section - Arabic (قسم البطل - العربية) -->
-        <section class="hero-section w-full">
-            <div class="container grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="text-left">
-                    <h2 class="section-heading mb-4">تصميم وطباعة عالية الجودة</h2>
-                    <p class="section-subheading">نحن نساعد العلامات التجارية على إنشاء مطبوعات فريدة وجذابة.</p>
-                    <div class="flex flex-wrap gap-4 mb-8">
-                        <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium">الطباعة الرقمية</span>
-                        <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium">طباعة الأوفست</span>
-                        <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium">التصميم الجرافيكي</span>
-                    </div>
-                    <a href="https://api.whatsapp.com/send/?phone=9647504222282&text&type=phone_number&app_absent=0" target="_blank" class="btn-primary">ابدأ الآن</a>
-                </div>
-                <div class="hero-images-grid">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj73MeowExFx5gACMLN2mUwAixaV9SJ5gyH7Of2CX-nYzbYBYH4nlKKN_BmYk-T5YT68bjaLyU3u0fEZAhl1at2qJCpmop12iukqEtpgKyFVauA2kpOg5gwua1_uAOtdpCUPjrfM8J5yWynPvduNms-dSl_bVgqAVzAh-55hV1FIQ9CpP4aS8ERxV2fSeMq/s600/1111%D8%AB.jpg" alt="Printing Service 1">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEibm759yBtbSwMT53VwF6_0uGC77Fp6xmii9rUFM-e4liedkn2LBTkALRL7BbTk5HsdVtAj1j7j3w-RFv4rJgjKlvdGFYkxpLw5XCzzJ53SzRmnok8SzBXtFkkh1vR6HXgJEVZmAhxIvUHWmIe5H4vlHdD_SWcyCrGvaSaaXi5a9ORyIJNuI6vhyVb5jgQp/s300/357%D8%B95%D8%B9.jpg" alt="Printing Service 2">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEit9gM-IC2-AuX4QmN9ZWsmmo5m3E2BWSpTJtd_z_GIwKxapC6iPa8KuFRrWI6UL1q7KSZgJBGjIaclj619azQky_hlKAEF6-mHNdDtfW9DEvQw2j8SWV_7Y6hEKVjl0QYE5CpsWr8XnnkD0IEedhifksdx1MxqJu8_n0Ki7jaU3ZbTymvLOzRQCqheIIoo/s300/34634576.jpg" alt="Printing Service 3">
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- Our Services Section - Arabic -->
-        <section id="services-ar" class="w-full py-16 px-4 bg-white">
-            <div class="container text-center">
-                <h2 class="section-heading mb-4">خدماتنا</h2>
-                <p class="section-subheading">تقدم مطبعة ريكس هذه الخدمات.</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                    <div class="quality-card">
-                        <h3 class="text-xl font-semibold mb-3 text-gray-800">أنواع الطباعة:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-print"></i> طباعة الأوفست</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> الطباعة الرقمية</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> حروف بارزة</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> طباعة UV DTF</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> طباعة DTF</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> طباعة تطريز</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> طباعة الليزر</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> طباعة السوبليميشن</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> طباعة الشاشة (Screen Printing)</li>
-                        </ul>
-                    </div>
-                    <div class="quality-card">
-                        <h3 class="text-xl font-semibold mb-3 text-gray-800">طباعة البوسترات واللافتات:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-palette"></i> تصميم وطباعة</li>
-                            <li class="service-list-item"><i class="fas fa-paint-roller"></i> طباعة أحجام كبيرة</li>
-                            <li class="service-list-item"><i class="fas fa-check-double"></i> جودة عالية</li>
-                        </ul>
-                        <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800">طباعة الكتب والمجلات:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-book"></i> تصاميم وأحجام متنوعة</li>
-                            <li class="service-list-item"><i class="fas fa-file-alt"></i> طباعة داخلية وغلاف</li>
-                        </ul>
-                    </div>
-                    <div class="quality-card">
-                        <h3 class="text-xl font-semibold mb-3 text-gray-800">طباعة بطاقات الدعوة والعمل:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-id-card"></i> تصميم خاص</li>
-                            <li class="service-list-item"><i class="fas fa-cut"></i> قص دقيق</li>
-                        </ul>
-                        <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800">طباعة الملابس:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-tshirt"></i> تطريز وطباعة مباشرة</li>
-                            <li class="service-list-item"><i class="fas fa-palette"></i> ألوان وتصاميم متنوعة</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- Custom Printing Section - Arabic -->
-        <section class="w-full py-16 px-4 bg-white">
-            <div class="container text-center">
-                <h2 class="section-heading">مطبوعات كرتونية مخصصة</h2>
-                <p class="section-subheading">تتيح لك Rix Printing تصميم وطباعة مطبوعات مخصصة لعلامتك التجارية.</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-                    <div class="feature-card">
-                        <img src="https://img1.wsimg.com/isteam/stock/2650" alt="Design Printing 1">
-                        <h4 class="text-xl font-semibold mb-2 text-gray-800">الخطوة الأولى: التصميم والطباعة</h4>
-                        <p class="text-gray-600">اختيار نوع التصميم والمواد للمطبوعات المحددة.</p>
-                    </div>
-                    <div class="feature-card">
-                        <img src="https://www.sprinter.com.au/wp-content/uploads/2019/07/Large_format_digital_printer.jpg" alt="Sample Printing 2">
-                        <h4 class="text-xl font-semibold mb-2 text-gray-800">الخطوة الثانية: النموذج والموافقة</h4>
-                        <p class="text-gray-600">تقديم عينات للمراجعة والموافقة النهائية.</p>
-                    </div>
-                    <div class="feature-card">
-                        <img src="https://www.airmark.com/cdn/shop/articles/BlogPost-3_1.jpg?v=1710262485" alt="Print and Ship 3">
-                        <h4 class="text-xl font-semibold mb-2 text-gray-800">الخطوة الثالثة: الطباعة والتوصيل</h4>
-                        <p class="text-gray-600">بدء عملية الطباعة والتوصيل بجودة عالية.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- Your Custom Printing Section - Arabic -->
-        <section class="w-full py-16 px-4 bg-gray-50">
-            <div class="container text-center">
-                <h2 class="section-heading">مطبوعات مخصصة بجودة عالية</h2>
-                <p class="section-subheading">في Rix Printing، نقدم مجموعة واسعة من خيارات الطباعة عالية الجودة.</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
-                    <div class="product-card">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiC62nFf4DlIiRNm-Bmmb73DfF_tOaipIAKbjt0xy8scB4uLbZQ2hAsoqETEvDEsd9SzMw7aIp29UPFeh61P4e_ls1n4tvJvthJ3ijbUyN94aHDTGcRC-SMBAt6qJiJ-FDXvRiuZZY50kzDDrocrW4uoMZFL21j6kZ8_JM5Tz0vr7EnLnqXw3PCtBX3IhbJ/s1709/%D8%B5%D8%B3%D8%AB%D9%82%D8%A7%D9%82.jpg" alt="Paper Printing">
-                        <span class="product-tag">ورقي</span>
-                        <h5 class="text-lg font-semibold mt-2">مطبوعات ورقية</h5>
-                    </div>
-                    <div class="product-card">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8F2IqxC5T8sr1iWTbfHLHA2tThUybkmzjAES7WVixZlPN3wKeCxXX0X993YK1j9ssymjuTYOLC9u-6ouJyJZEiRnMx2OHZL9Mj2DF9FcJcnR94d_yQLOwEVE9n0LwZmDj_Nco61JBh3oujWDDybGgaDlW-iBCMpLO_Mve7lIw25OWvKSn9wueFZi5gQgO/s1709/%D8%B4%D8%AB%D8%A7.jpg" alt="Custom Design Printing">
-                        <span class="product-tag">تصميم</span>
-                        <h5 class="text-lg font-semibold mt-2">مطبوعات بتصميم خاص</h5>
-                    </div>
-                    <div class="product-card">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgixePvfpYC4mk_wBsWI4MD384VxBB0gkdtrQPk3TgNJ1rx3fYf0p4OOwYEGrU49j0lP8OsD4t_WlqQ4l_2W92yrp1n1O_xh_7Wb6RX7UiamfFgbjOB9KYtMjrDF32HkIuvcao4ewvtnl9_LfEMjv6EhMyF_8FdxzJa3CvQKs3MOvpsrVPmxsejRJNZ2ktm/s1709/%D8%B4%D8%B3%D8%AB%D8%A7%D9%84%D8%B4%D8%B3%D8%AB%D8%A7%D9%84.jpg" alt="Premium Printing">
-                        <span class="product-tag">مميز</span>
-                        <h5 class="text-lg font-semibold mt-2">مطبوعات عالية الجودة</h5>
-                    </div>
-                    <div class="product-card">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEitUyzTqUdM8OIw4J7o3znmrwLnquTUuo821cp758GECx1bUhKefBsiRXiQyDMVOw6tjUHwfiZ7WXP0amTev1cOMZ1fcn01rHg_Fu6NKy504k2mXIWXntrR3XGhTtt-9w5mQb59P5DQdsUbo6rYaQsI1CofRrOwkFz6K48LMKyykC15BfeVIYyGLSfUu519/s300/4235.jpg" alt="Cosmetic Printing">
-                        <span class="product-tag">أعلام</span>
-                        <h5 class="text-lg font-semibold mt-2">طباعة الأعلام</h5>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- About Us Section - Arabic -->
-        <section id="about-us-ar" class="w-full py-16 px-4 bg-white">
-            <div class="container text-center">
-                <h2 class="section-heading mb-4">من نحن</h2>
-                <p class="section-subheading">
-                    نحن، في مطبعة ريكس، نفخر بتقديم خدمات الطباعة لعملائنا الكرام. 
-                    على مدى سنوات عديدة، دعمنا عملاءنا في مختلف مجالات الطباعة، ساعين لاستثمار كامل إمكاناتنا لتقديم خدمات طباعة عامة عالية الجودة ومتقدمة.
-                </p>
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">رؤيتنا:</h3>
-                <div class="flex justify-center flex-wrap gap-4 text-xl font-semibold text-red-600">
-                    <span>الموثوقية</span>
-                    <span>•</span>
-                    <span>الجودة</span>
-                    <span>•</span>
-                    <span>السرعة</span>
-                </div>
-            </div>
-        </section>
-
- 
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- See how to succeed with printing section - Arabic -->
-        <section class="video-section w-full">
-            <div class="video-overlay"></div>
-            <div class="container video-content text-center">
-                <h2 class="text-4xl font-extrabold mb-6">تعرف على كيفية النجاح بالطباعة</h2>
-                <p class="text-xl mb-10 text-gray-300 max-w-2xl mx-auto">نحن نقدم حلول طباعة مبتكرة تساعد العلامات التجارية على التميز.</p>
-                <div class="video-placeholder">
-                    <i class="fas fa-play-circle text-6xl"></i>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- For Our Customers Section - Arabic -->
-        <section class="w-full py-16 px-4 bg-gray-50">
-            <div class="container text-center">
-                <h2 class="section-heading mb-4">لعملائنا</h2>
-                <p class="text-xl mb-6 text-gray-700 max-w-3xl mx-auto">
-                    عملاؤنا هم مصدر قوتنا ونجاحنا. ثقتكم واعتمادكم علينا بمثابة قوة دافعة قوية لنمونا وتقدمنا. نحن ندرك مسؤوليتنا لتقديم خدمة استثنائية ومتميزة دائمًا. هدفنا ليس فقط بيع المنتجات والخدمات، بل بناء علاقة موثوقة وطويلة الأمد مع كل واحد منكم.
-                </p>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-      
-        <!-- Our Partners & Customers Section - Kurdish -->
-        <section class="w-full py-16 px-4 bg-white" lang="ckb" dir="rtl">
-            <div class="container text-center">
-                <h2 class="section-heading mb-8">شركاؤنا وعملاؤنا</h2>
-                <!-- Logos Grid -->
-                <div class="client-logo-grid">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiEUFBxVJcok4P2kpiB-mTcof0dvIFacH7jXsO0yRTaWnDHBBQsh7iwYm7oEuAutQN1wWvgGHvzmwKk9WUTCEgUUI7MFHIYBXU8on97RjAzN6734k8piL4e_OKu3t-nTjriJDkH8Az2wpbmoVJxEKNM2Si7sZJfzDyrtsaKqw16-Q1xB6i5Qf_AepfUJ4X2/s1499/Artboard%201%20copy%207.png" alt="شعار العميل 1">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjKTQqufbmg_8CE94hN6bsDdn1Lk0HynTNHIfYTN_t09BamA6y0BtJhv4yBKXBghyphenhypheni1optB6gmREt-SCBDhc18Y7YNzkpumA2KtgUnyzoPg_bjBgzzxL9PLUztUjkz4ErZEA3b9rx86pJ9_zGRmRK8I0q_XRoRJV0jilW07cGLpB5jLFnIYpded8L1fj93D/s1499/Artboard%201%20copy%206.png" alt="شعار العميل 2">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhevA3hQqzM4HcyfLithK_iydTIp8ZbXQSYhpTIXM03eoTgto0my-lZdVsLj-9zEizHpjwgAjH4j8MHZcqRC4341x0XT_SUVVhVsm0yacKrEj6GTWC9nOKoHsOf1jzpUI3DVKa0WcdFR_CoyJoP4hku763TNBi5A1SgQnuwtPEwPfBkZldEzNGdvgk1p9XU/s1500/Artboard%201%20copy%204.png" alt="شعار العميل 3">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjs-EvA_oy6T-Wdqr3jP5_SiF1fh11O-m8UjHaJq7vP788nanHPvqrt47okvgAF9pdg3kesjE3efUhyFijs9PFkmpNN-U07bSbGsSZ7PtM37q8bwSxYc-GG1R7Yy4jzuDpOR8xTjOX3SE2ykjPPaU1QnfR2jjXyL97DquDoOjmpKjOtF2y8lMGJc35tMsJR/s1499/Artboard%201%20copy%203.png" alt="شعار العميل 4">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhK8rop12XYYUAoQMHY_6-x0fNgpD9aZVMLCQECIPFItGVdB11m_KuXFt1amM-pkeRhwKgYMGom79C-yJxnAHD3z6iSj2abgv9FzuisbjyBXiuJys2hCUwGEYi6knzcwB-nQciZFC_VKwMwEjkiBOzq6ZAphwNchVHjdMx-HPMkFr-oEyVlBZtFd22MQX5z/s1500/Artboard%201%20copy%2012.png" alt="شعار العميل 5">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgijvKoKZMN8diRdZFedvPVdh1U-cVEUdGaaKp193e1_wi83x6OlQ9WO13tZ8GBFT8ykx9ZoS728lzVhPwk4ix9KDy5vxVvH80fcNPQiI6ymuJ-Xnr1RS7Wm2qULropZgSuRC7lU_5qAjOEPYo2bKMyKuN9rhg9ZnyZnNmR9bIOlocflLYuJOtZPDR9rQtx/s1499/Artboard%201%20copy%2011.png" alt="شعار العميل 6">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-9LYiP0CQITaQu7P6eFYx0mCL0w6xT5nD7sTCo_x49G-OGXZd4nMY3OyC4WlnCTwZ5EypOnhtq9-WcRQqLTYcd-FA_4MxznGe6TB75dTsQINddR1GnbhPrsyDFnQJApBb182nidRhhAzxom9qWI5rwmiuBY8aALHDNCpUUlmw9f9wD92ckLx_sA1DITYi/s1500/Artboard%201%20copy%2010.png" alt="شعار العميل 7">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLgaWx2me0NNE4KcAsEKuCYQXyAU-SKaWuzCEnPMsRIITS_1K1KiXiHuet6woBMoIP-lz0X1Ei3Ppah5IIV48rUvj8XRLLTGE4aUVxQzrI450DhesA_OT7Yp1yMoKD1ZeQt17FZrDN8h9Pyv4jKPDpeJNOAOVGWeP6RFEw1Dh5aAaxcFsttSU7gQHvT7J0/s1499/Artboard%201%20copy%209.png" alt="شعار العميل 8">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEnaIATWzTBeuejkb1rYlVfdyfl1ea8591jZUxElKvxfCQhH95IV3gvL0ap6HAMTyf2cS7xjvJM1GfpDWai39f-W2ZfaDCQOpc3qaE4U5k7fO5ifph19kFm9a-PZGgGU-oF2U5URKFFqB_knCQxOQjq4NoSpoAdovCHy8F3VMxvpz3BRKfYq7siF0CJoBQ/s1499/Artboard%201%20copy%208.png" alt="شعار العميل 9">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjv7fPTUHurH0cgaI_aS0g8RrN1tQP9APLQK4hkN1T1hiBSCWi6MuVcRcXjXZQauS40Lphhxqzhi0gq8hAYTFmtSSKNVWYvmJdHGaz2C_UY7rmshfa-zNp9cvdnTc7QaQ5_oqCUknLJy022KZTqFblgvyzvtMt8GfGk-bk2Z9KeqSD7Qc-czpN9WvbnxLAp/s1499/Artboard%201%20copy%2015.png" alt="شعار العميل 11">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghh1Z61NcyA9NbwMMWnCcR9TggaeSYfJ0qyn_kPbOkisqY70lRBB-EBaKmFJlJP_9298SD8qGVeco9176OurLOMjXVmfx1rtTGej16RQr8-zs7xS3896Fp5ZtywnWfrE63URw6eJmrZOWRbXDVhDOt6AzlaazVIbtzLmiyPMO42FF1siREL1-5Du8GapiV/s1499/Artboard%201%20copy%2014.png" alt="شعار العميل 12">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyippkkS5t4qrl-d9P2Cg2PypTY-zn82ej0PsL7_2WR6mavgodOeYqJsMgQgTjmbLmtnGtMq0QbjvKBw7ib64JcarAnUxWiyg7nzQQDbTB_TQZo5ajEaJH3bjqUhy943pMCWltYm673hVXI7aPJfY95coH_eNkxELXzwyQ2Nqy0P5lBVQ6seamY-GGfP0D/s1499/Artboard%201%20copy%2013.png" alt="شعار العميل 13">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgtLyLJ3ctZQEsWO8X-bosA-c8xr0bGVGIRJBLvDqG_7gN51r41JxcvXMDr0pf39AdvRw7Xed3_u4dbtJBoMRwyjmkTXyKK6K_ayIksm0oxFmTGLecaLqBaQ5osfIsuLc5EJ-Sf9Hqibn7QCSRG33c0rp7ZE0L5A0DGNZbuyUgdlhI7ke2kjXPOdcNAcosV/s1264/Artboard%2017%20copy.png" alt="شعار العميل 14">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiXjtFIt7BkKucSSqD_s48AJ9fpKgvDuChZjNTSgscUiy5nLpZY4Euzd5IUqZjCdI4qfwOLk4LFXn-gzb5Obf58vQ_30YlESISJCP3o8hSegLdrl_bTh5kenlRc-Msq31V1e1F3RKMAKsn7U0nTAH3UyTLrez-M6SQaXEH4knvxVFn2eB26s9wWlQ6anHi1/s1265/Artboard%2017%20copy%205.png" alt="شعار العميل 15">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgH6O14CguefADxXTW7NKRlscbiCuOmPHuYRGTx0MDzTvFxNZW9jOnEcHgSrbN0mNeY_CvWX-kNZV0ZdXmEe7Cc36io2qYMjTyqlcgxMXGmbLlYEcr1h8uu-xWZqyshHUkkm4bsCWlnYihsGSoiS-AGtdzHKhOHah14PAcvJc_Dw249yUlcae1GUs7wq74x/s1264/Artboard%2017%20copy%204.png" alt="شعار العميل 16">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgZUrMNpECwSB4YiZHj-P9ZBgDgCUVY9IZG-ytUSxgychmmfdPl-WCrRqt2X7Cvm_Tm1Mgb77uQKq2YxVKbcFwcTTNyGb9qyMQKQ2JDR4W8TF5ht08n7ekDaNWLeiKiG7pHwVklDkqkwYuw5oeYLFCrB2ar66-kXAIvroW3ic5XQ1M1_R4lYx6corfzMzMJ/s1265/Artboard%2017%20copy%203.png" alt="شعار العميل 17">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjTZ1rzAo5fS1FgPWld6gl7kQ4LUeU5SZF3K53oGgTI3iIUAcFm_yNnIFwwgFUnIuzYKLOU8WDTRCYLBFQI5gXRVavHeFWKtSHsTLzV8ucs3x3FxPlZq7ywhx6qIOFfdKFPSlbK-1p1175aM3J2C-jUptbGKF9ZzTCoS9utRVTpFFwXEJWDL63Mv14coMVd/s1265/Artboard%2017%20copy%202.png" alt="شعار العميل 18">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgF4UxLCBF1BDi1hP_Pk42Wd780dUTgea6iuykVrcLMoCR7oimdjTJmPfThmigYHRhaXbiZJ1BusSqM-EiD5TyMuih9a-m9i_isyZP50cT7uNW4bm5M14nwtZg0nAJQZK8Eed3sP5vT_DJQFzAO6zmkpGoa6w8dsFUkyGVFYXctoFqzOmQXTSzwR4xBup3_/s1265/Artboard%2017%20copy%2013.png" alt="شعار العميل 19">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgB-FLCwW2aqowrepewc6Z0BxYXdH_0jCCoIq-nCAtWbQywsbOv1Xhj49WTfp6M0sSIOEzQ3JRCX1aMtUoNLNIxigk3WFOxKVABz2IlwqumHiyJuwzK6y1cviJwQSkgXuHUQQxJqYpl-falimGz1s-38o2INWetB_fTI_f4rtsy7udajVWDtCqQlmZbM0Wo/s1265/Artboard%2017%20copy%2012.png" alt="شعار العميل 20">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhRR92i3KIhktJHaWtlPSKQxDXNlo-C4AnAJxgRP7sSERA1aBlpFjSoIjVQe6YJ7D_c8xGdwyo8S1XNc1LHSAXTtqSjSyin2hQiq7-WNae6l8Br2-kyVp2NpypYBtVI9DgKjbAocgyovYWCvtS8tQbekcgKSUkqk7g0JCKRcpHFRgzt7xc9ISzJe4Jjk8yz/s1265/Artboard%2017%20copy%2011.png" alt="شعار العميل 21">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhHELFNl0juvwnQN_h5wW0OOi4HDLMVMTU_-mGew40NzA6p02xtsSB5OpSCnyWcFZtwNgwO9nQ9rWtAc0HaJha_Ccwo0b7Hq4JFt-Mfnlqdm3-vZwINlTRV5-68rp_TkwnMFLbCEnKJEQ_Xdq-ypAWLxABhZR73pQvb4EOZv1v0lmKUAsVNEe2gZCIBZU7C/s1265/Artboard%2017%20copy%2010.png" alt="شعار العميل 22">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3Hw8T3AH3Vtrt8Yxm-dxrj3dQb04F8c0ZBmyq_wTVNqJXwsboPFLrLTmTFOuSuQWpJdvKn5oNNuAFfdHDNKiVUcRz8z6aRxVXQnFrsoGidTgZYDMAGd_M6itUsurDsXE1H_HFN85Je-tHaT_M81F3U2-mJz6uSU4ij7wjo5CuhSX19Fhp08YtpVlUBCMB/s1264/Artboard%2017%20copy%206.png" alt="شعار العميل 23">
-                </div>
-            </div>
-        </section>
+</footer>
 
 
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- Shop Location Section - Arabic -->
-        <section class="map-section w-full">
-            <div class="container">
-                <h2 class="section-heading mb-4">موقع المتجر</h2>
-                <p class="section-subheading">تجدنا على الخريطة.</p>
-                <div class="map-container">
-                    <iframe
-                        src="https://maps.google.com/maps?q=36.296006049345785,44.018319059200046&z=15&output=embed"
-                        width="600"
-                        height="450"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-            </div>
-        </section>
-
-        <!-- Get in Touch Section (Main page) - Arabic -->
-        <section id="main-contact-ar" class="w-full py-16 px-4 bg-gray-50">
-            <div class="container text-center">
-                <h2 class="section-heading mb-4">تواصل معنا</h2>
-                <p class="section-subheading">لأية استفسارات أو طلبات، لا تترددوا في الاتصال بنا.</p>
-                <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
-                    <form onsubmit="sendContactEmail(event, 'ar')" class="flex flex-col space-y-4">
-                        <input type="text" id="name-ar-main" placeholder="اسمك" class="p-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500" required>
-                        <input type="tel" id="phone-ar-main" placeholder="رقم الهاتف" class="p-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500" required>
-                        <textarea id="description-ar-main" placeholder="وصف طلبك" rows="5" class="p-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500" required></textarea>
-                        <button type="submit" class="bg-red-600 text-white p-3 rounded-md font-semibold hover:bg-red-700 transition">إرسال</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-        
-        <!-- Footer Section - Arabic (قسم التذييل - العربية) -->
-        <footer class="w-full bg-gray-800 text-white py-12 mt-auto">
-            <div class="container grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6DQ8wsfNFwfoVN7B-MEyetqDTMsV6xk1gKuwJn85bDl2kur5f3ZVuMgfQekbE8arTQu_xQSsuoVmFcOUyjaFG4RVwOvG0_kqAEb-V3MgYRzxjo7c-8mE1zqjYrN7gpdmhdDtLQ8uq2Uk_WAa1imn-XtBkTZlXAhhZJZ4Ii2qJEWoFs0jgDdXDNv31e2J2/s320/rix%20logo.png" alt="Rix Printing Logo" class="logo-img">
-                    <p class="text-sm text-gray-400 mb-4">نحن نقدم خدمات طباعة وتصميم عالية الجودة.</p>
-                    <a href="https://www.instagram.com/rix_printing/" target="_blank" class="social-icon-box">
-                        <i class="fab fa-instagram social-icon"></i>
-                        <span>شاهدوا أعمالنا عبر إنستغرام</span>
-                    </a>
-                </div>
-                <div>
-                    <h5 class="footer-heading">معلومات</h5>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-red-300">من نحن</a></li>
-                        <li><a href="#" class="hover:text-red-300">الخدمات</a></li>
-                        <li><a href="#" class="hover:text-red-300">الأسعار</a></li>
-                        <li><a href="#" class="hover:text-red-300">الأسئلة الشائعة</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="footer-heading">اتصل بنا</h5>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="tel:+9647506151617" class="hover:text-red-300">07506151617</a></li>
-                        <li><a href="tel:+9647506121314" class="hover:text-red-300">07506121314</a></li>
-                        <li><a href="mailto:info@rixprinting.com" class="hover:text-red-300">info@rixprinting.com</a></li>
-                        <li><span class="text-gray-400">Bahrka - 150m overpass, Erbil, Iraq</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="text-center text-sm text-gray-500 mt-8 border-t border-gray-700 pt-6">
-                <p>&copy; 2025 Rix Printing. جميع الحقوق محفوظة.</p>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Main Content Container for English (محتوى الموقع باللغة الإنجليزية) -->
-    <div id="english-content" class="min-h-screen flex flex-col items-center hidden">
-        <!-- Header Section - English (قسم الرأس - الإنجليزية) -->
-        <header class="w-full header-bg shadow-sm py-4">
-            <div class="container flex flex-col sm:flex-row items-center justify-between px-4">
-                <div class="flex items-center space-x-4 mb-4 sm:mb-0">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6DQ8wsfNFwfoVN7B-MEyetqDTMsV6xk1gKuwJn85bDl2kur5f3ZVuMgfQekbE8arTQu_xQSsuoVmFcOUyjaFG4RVwOvG0_kqAEb-V3MgYRzxjo7c-8mE1zqjYrN7gpdmhdDtLQ8uq2Uk_WAa1imn-XtBkTZlXAhhZJZ4Ii2qJEWoFs0jgDdXDNv31e2J2/s320/rix%20logo.png" alt="Rix Printing Logo" class="logo-img">
-                    <h1 class="text-3xl font-extrabold text-gray-800">Rix Printing</h1>
-                </div>
-                <nav class="flex-grow flex justify-end items-center space-x-6">
-                    <ul class="flex space-x-4 text-lg hidden md:flex">
-                        <li><a href="#services-en" class="nav-link">Services</a></li>
-                        <li><a href="#about-us-en" class="nav-link">About Us</a></li>
-                        <li><a href="#main-contact-en" class="nav-link">Contact</a></li>
-                        <li><a href="#" class="nav-link">Blog</a></li>
-                    </ul>
-                    <div class="flex items-center space-x-4">
-                        <a href="https://api.whatsapp.com/send/?phone=9647504222282&text&type=phone_number&app_absent=0" target="_blank" class="btn-primary hidden md:block">Visit</a>
-                    </div>
-                </nav>
-            </div>
-        </header>
-
-        <!-- Hero Section - English (قسم البطل - الإنجليزية) -->
-        <section class="hero-section w-full">
-            <div class="container grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="text-left">
-                    <h2 class="section-heading mb-4">Design & High-Quality Printing</h2>
-                    <p class="section-subheading">We help brands create distinctive and eye-catching prints.</p>
-                    <div class="flex flex-wrap gap-4 mb-8">
-                        <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium">Digital Printing</span>
-                        <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium">Offset Printing</span>
-                        <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium">Graphic Design</span>
-                    </div>
-                    <a href="https://api.whatsapp.com/send/?phone=9647504222282&text&type=phone_number&app_absent=0" target="_blank" class="btn-primary">Get Started</a>
-                </div>
-                <div class="hero-images-grid">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj73MeowExFx5gACMLN2mUwAixaV9SJ5gyH7Of2CX-nYzbYBYH4nlKKN_BmYk-T5YT68bjaLyU3u0fEZAhl1at2qJCpmop12iukqEtpgKyFVauA2kpOg5gwua1_uAOtdpCUPjrfM8J5yWynPvduNms-dSl_bVgqAVzAh-55hV1FIQ9CpP4aS8ERxV2fSeMq/s600/1111%D8%AB.jpg" alt="Printing Service 1">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEibm759yBtbSwMT53VwF6_0uGC77Fp6xmii9rUFM-e4liedkn2LBTkALRL7BbTk5HsdVtAj1j7j3w-RFv4rJgjKlvdGFYkxpLw5XCzzJ53SzRmnok8SzBXtFkkh1vR6HXgJEVZmAhxIvUHWmIe5H4vlHdD_SWcyCrGvaSaaXi5a9ORyIJNuI6vhyVb5jgQp/s300/357%D8%B95%D8%B9.jpg" alt="Printing Service 2">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEit9gM-IC2-AuX4QmN9ZWsmmo5m3E2BWSpTJtd_z_GIwKxapC6iPa8KuFRrWI6UL1q7KSZgJBGjIaclj619azQky_hlKAEF6-mHNdDtfW9DEvQw2j8SWV_7Y6hEKVjl0QYE5CpsWr8XnnkD0IEedhifksdx1MxqJu8_n0Ki7jaU3ZbTymvLOzRQCqheIIoo/s300/34634576.jpg" alt="Printing Service 3">
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- Our Services Section - English -->
-        <section id="services-en" class="w-full py-16 px-4 bg-white">
-            <div class="container text-center">
-                <h2 class="section-heading mb-4">Our Services</h2>
-                <p class="section-subheading">Rix Printing provides these services.</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                    <div class="quality-card">
-                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Types of Printing:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-print"></i> Offset Printing</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> Digital Printing</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> Raised Letters</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> UV DTF Printing</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> DTF Printing</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> Embroidery Printing</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> Laser Printing</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> Sublimation Print</li>
-                            <li class="service-list-item"><i class="fas fa-print"></i> Screen Printing</li>
-                        </ul>
-                    </div>
-                    <div class="quality-card">
-                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Poster & Banner Printing:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-palette"></i> Design & Print</li>
-                            <li class="service-list-item"><i class="fas fa-paint-roller"></i> Large Format Printing</li>
-                            <li class="service-list-item"><i class="fas fa-check-double"></i> High Quality</li>
-                        </ul>
-                        <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800">Book & Magazine Printing:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-book"></i> Various Designs & Sizes</li>
-                            <li class="service-list-item"><i class="fas fa-file-alt"></i> Inner Pages & Cover Printing</li>
-                        </ul>
-                    </div>
-                    <div class="quality-card">
-                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Invitation & Business Card Printing:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-id-card"></i> Custom Design</li>
-                            <li class="service-list-item"><i class="fas fa-cut"></i> Precise Cutting</li>
-                        </ul>
-                        <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800">Apparel Printing:</h3>
-                        <ul>
-                            <li class="service-list-item"><i class="fas fa-tshirt"></i> Embroidery & Direct Print</li>
-                            <li class="service-list-item"><i class="fas fa-palette"></i> Diverse Colors & Designs</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- Custom Printing Section - English -->
-        <section class="w-full py-16 px-4 bg-white">
-            <div class="container text-center">
-                <h2 class="section-heading">Custom Cardboard Printing</h2>
-                <p class="section-subheading">Rix Printing allows you to design and print custom prints for your brand.</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-                    <div class="feature-card">
-                        <img src="https://img1.wsimg.com/isteam/stock/2650" alt="Design Printing 1">
-                        <h4 class="text-xl font-semibold mb-2 text-gray-800">Step One: Design & Print</h4>
-                        <p class="text-gray-600">Selecting design type and materials for specific printing.</p>
-                    </div>
-                    <div class="feature-card">
-                        <img src="https://www.sprinter.com.au/wp-content/uploads/2019/07/Large_format_digital_printer.jpg" alt="Sample Printing 2">
-                        <h4 class="text-xl font-semibold mb-2 text-gray-800">Step Two: Sample & Approval</h4>
-                        <p class="text-gray-600">Providing samples for review and final approval.</p>
-                    </div>
-                    <div class="feature-card">
-                        <img src="https://www.airmark.com/cdn/shop/articles/BlogPost-3_1.jpg?v=1710262485" alt="Print and Ship 3">
-                        <h4 class="text-xl font-semibold mb-2 text-gray-800">Step Three: Printing & Delivery</h4>
-                        <p class="text-gray-600">Initiating the printing process and delivering with high quality.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- Your Custom Printing Section - English -->
-        <section class="w-full py-16 px-4 bg-gray-50">
-            <div class="container text-center">
-                <h2 class="section-heading">High-Quality Custom Printing</h2>
-                <p class="section-subheading">At Rix Printing, we offer a wide range of high-quality printing options.</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
-                    <div class="product-card">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiC62nFf4DlIiRNm-Bmmb73DfF_tOaipIAKbjt0xy8scB4uLbZQ2hAsoqETEvDEsd9SzMw7aIp29UPFeh61P4e_ls1n4tvJvthJ3ijbUyN94aHDTGcRC-SMBAt6qJiJ-FDXvRiuZZY50kzDDrocrW4uoMZFL21j6kZ8_JM5Tz0vr7EnLnqXw3PCtBX3IhbJ/s1709/%D8%B5%D8%B3%D8%AB%D9%82%D8%A7%D9%82.jpg" alt="Paper Printing">
-                        <span class="product-tag">Paper</span>
-                        <h5 class="text-lg font-semibold mt-2">Paper Printing</h5>
-                    </div>
-                    <div class="product-card">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8F2IqxC5T8sr1iWTbfHLHA2tThUybkmzjAES7WVixZlPN3wKeCxXX0X993YK1j9ssymjuTYOLC9u-6ouJyJZEiRnMx2OHZL9Mj2DF9FcJcnR94d_yQLOwEVE9n0LwZmDj_Nco61JBh3oujWDDybGgaDlW-iBCMpLO_Mve7lIw25OWvKSn9wueFZi5gQgO/s1709/%D8%B4%D8%AB%D8%A7.jpg" alt="Custom Design Printing">
-                        <span class="product-tag">Design</span>
-                        <h5 class="text-lg font-semibold mt-2">Custom Design Printing</h5>
-                    </div>
-                    <div class="product-card">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgixePvfpYC4mk_wBsWI4MD384VxBB0gkdtrQPk3TgNJ1rx3fYf0p4OOwYEGrU49j0lP8OsD4t_WlqQ4l_2W92yrp1n1O_xh_7Wb6RX7UiamfFgbjOB9KYtMjrDF32HkIuvcao4ewvtnl9_LfEMjv6EhMyF_8FdxzJa3CvQKs3MOvpsrVPmxsejRJNZ2ktm/s1709/%D8%B4%D8%B3%D8%AB%D8%A7%D9%84%D8%B4%D8%B3%D8%AB%D8%A7%D9%84.jpg" alt="Premium Printing">
-                        <span class="product-tag">Premium</span>
-                        <h5 class="text-lg font-semibold mt-2">Premium Quality Printing</h5>
-                    </div>
-                    <div class="product-card">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEitUyzTqUdM8OIw4J7o3znmrwLnquTUuo821cp758GECx1bUhKefBsiRXiQyDMVOw6tjUHwfiZ7WXP0amTev1cOMZ1fcn01rHg_Fu6NKy504k2mXIWXntrR3XGhTtt-9w5mQb59P5DQdsUbo6rYaQsI1CofRrOwkFz6K48LMKyykC15BfeVIYyGLSfUu519/s300/4235.jpg" alt="Cosmetic Printing">
-                        <span class="product-tag">Flags</span>
-                        <h5 class="text-lg font-semibold mt-2">Printing of Flags</h5>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- About Us Section - English -->
-        <section id="about-us-en" class="w-full py-16 px-4 bg-white">
-            <div class="container text-center">
-                <h2 class="section-heading mb-4">About Us</h2>
-                <p class="section-subheading">
-                    We, at Rix Printing House, are proud to offer printing services to our esteemed customers. 
-                    For many years, we have supported our clients in various fields of printing, striving to leverage our full capabilities to provide high-quality and advanced public printing services.
-                </p>
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">Our Vision:</h3>
-                <div class="flex justify-center flex-wrap gap-4 text-xl font-semibold text-red-600">
-                    <span>RELIABILITY</span>
-                    <span>•</span>
-                    <span>QUALITY</span>
-                    <span>•</span>
-                    <span>SPEED</span>
-                </div>
-            </div>
-        </section>
-
-     
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- See how to succeed with printing section - English -->
-        <section class="video-section w-full">
-            <div class="video-overlay"></div>
-            <div class="container video-content text-center">
-                <h2 class="text-4xl font-extrabold mb-6">See How to Succeed with Printing</h2>
-                <p class="text-xl mb-10 text-gray-300 max-w-2xl mx-auto">We provide innovative printing solutions that help brands stand out.</p>
-                <div class="video-placeholder">
-                    <i class="fas fa-play-circle text-6xl"></i>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- For Our Customers Section - English -->
-        <section class="w-full py-16 px-4 bg-gray-50">
-            <div class="container text-center">
-                <h2 class="section-heading mb-4">For Our Customers</h2>
-                <p class="text-xl mb-6 text-gray-700 max-w-3xl mx-auto">
-                    Our customers are the source of our strength and success. Your trust and reliance on us serve as a powerful force in driving our growth and progress. We recognize our responsibility to always deliver exceptional and outstanding service. Our goal is not merely to sell products and services, but to build a trustworthy and long-lasting relationship with each and every one of you.
-                </p>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-   
-        <!-- Our Partners & Customers Section - Kurdish -->
-        <section class="w-full py-16 px-4 bg-white" lang="ckb" dir="rtl">
-            <div class="container text-center">
-                <h2 class="section-heading mb-8">Our Partners & Customers</h2>
-                <!-- Logos Grid -->
-                <div class="client-logo-grid">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiEUFBxVJcok4P2kpiB-mTcof0dvIFacH7jXsO0yRTaWnDHBBQsh7iwYm7oEuAutQN1wWvgGHvzmwKk9WUTCEgUUI7MFHIYBXU8on97RjAzN6734k8piL4e_OKu3t-nTjriJDkH8Az2wpbmoVJxEKNM2Si7sZJfzDyrtsaKqw16-Q1xB6i5Qf_AepfUJ4X2/s1499/Artboard%201%20copy%207.png" alt="شعار العميل 1">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjKTQqufbmg_8CE94hN6bsDdn1Lk0HynTNHIfYTN_t09BamA6y0BtJhv4yBKXBghyphenhypheni1optB6gmREt-SCBDhc18Y7YNzkpumA2KtgUnyzoPg_bjBgzzxL9PLUztUjkz4ErZEA3b9rx86pJ9_zGRmRK8I0q_XRoRJV0jilW07cGLpB5jLFnIYpded8L1fj93D/s1499/Artboard%201%20copy%206.png" alt="شعار العميل 2">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhevA3hQqzM4HcyfLithK_iydTIp8ZbXQSYhpTIXM03eoTgto0my-lZdVsLj-9zEizHpjwgAjH4j8MHZcqRC4341x0XT_SUVVhVsm0yacKrEj6GTWC9nOKoHsOf1jzpUI3DVKa0WcdFR_CoyJoP4hku763TNBi5A1SgQnuwtPEwPfBkZldEzNGdvgk1p9XU/s1500/Artboard%201%20copy%204.png" alt="شعار العميل 3">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjs-EvA_oy6T-Wdqr3jP5_SiF1fh11O-m8UjHaJq7vP788nanHPvqrt47okvgAF9pdg3kesjE3efUhyFijs9PFkmpNN-U07bSbGsSZ7PtM37q8bwSxYc-GG1R7Yy4jzuDpOR8xTjOX3SE2ykjPPaU1QnfR2jjXyL97DquDoOjmpKjOtF2y8lMGJc35tMsJR/s1499/Artboard%201%20copy%203.png" alt="شعار العميل 4">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhK8rop12XYYUAoQMHY_6-x0fNgpD9aZVMLCQECIPFItGVdB11m_KuXFt1amM-pkeRhwKgYMGom79C-yJxnAHD3z6iSj2abgv9FzuisbjyBXiuJys2hCUwGEYi6knzcwB-nQciZFC_VKwMwEjkiBOzq6ZAphwNchVHjdMx-HPMkFr-oEyVlBZtFd22MQX5z/s1500/Artboard%201%20copy%2012.png" alt="شعار العميل 5">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgijvKoKZMN8diRdZFedvPVdh1U-cVEUdGaaKp193e1_wi83x6OlQ9WO13tZ8GBFT8ykx9ZoS728lzVhPwk4ix9KDy5vxVvH80fcNPQiI6ymuJ-Xnr1RS7Wm2qULropZgSuRC7lU_5qAjOEPYo2bKMyKuN9rhg9ZnyZnNmR9bIOlocflLYuJOtZPDR9rQtx/s1499/Artboard%201%20copy%2011.png" alt="شعار العميل 6">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-9LYiP0CQITaQu7P6eFYx0mCL0w6xT5nD7sTCo_x49G-OGXZd4nMY3OyC4WlnCTwZ5EypOnhtq9-WcRQqLTYcd-FA_4MxznGe6TB75dTsQINddR1GnbhPrsyDFnQJApBb182nidRhhAzxom9qWI5rwmiuBY8aALHDNCpUUlmw9f9wD92ckLx_sA1DITYi/s1500/Artboard%201%20copy%2010.png" alt="شعار العميل 7">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLgaWx2me0NNE4KcAsEKuCYQXyAU-SKaWuzCEnPMsRIITS_1K1KiXiHuet6woBMoIP-lz0X1Ei3Ppah5IIV48rUvj8XRLLTGE4aUVxQzrI450DhesA_OT7Yp1yMoKD1ZeQt17FZrDN8h9Pyv4jKPDpeJNOAOVGWeP6RFEw1Dh5aAaxcFsttSU7gQHvT7J0/s1499/Artboard%201%20copy%209.png" alt="شعار العميل 8">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEnaIATWzTBeuejkb1rYlVfdyfl1ea8591jZUxElKvxfCQhH95IV3gvL0ap6HAMTyf2cS7xjvJM1GfpDWai39f-W2ZfaDCQOpc3qaE4U5k7fO5ifph19kFm9a-PZGgGU-oF2U5URKFFqB_knCQxOQjq4NoSpoAdovCHy8F3VMxvpz3BRKfYq7siF0CJoBQ/s1499/Artboard%201%20copy%208.png" alt="شعار العميل 9">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjv7fPTUHurH0cgaI_aS0g8RrN1tQP9APLQK4hkN1T1hiBSCWi6MuVcRcXjXZQauS40Lphhxqzhi0gq8hAYTFmtSSKNVWYvmJdHGaz2C_UY7rmshfa-zNp9cvdnTc7QaQ5_oqCUknLJy022KZTqFblgvyzvtMt8GfGk-bk2Z9KeqSD7Qc-czpN9WvbnxLAp/s1499/Artboard%201%20copy%2015.png" alt="شعار العميل 11">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghh1Z61NcyA9NbwMMWnCcR9TggaeSYfJ0qyn_kPbOkisqY70lRBB-EBaKmFJlJP_9298SD8qGVeco9176OurLOMjXVmfx1rtTGej16RQr8-zs7xS3896Fp5ZtywnWfrE63URw6eJmrZOWRbXDVhDOt6AzlaazVIbtzLmiyPMO42FF1siREL1-5Du8GapiV/s1499/Artboard%201%20copy%2014.png" alt="شعار العميل 12">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyippkkS5t4qrl-d9P2Cg2PypTY-zn82ej0PsL7_2WR6mavgodOeYqJsMgQgTjmbLmtnGtMq0QbjvKBw7ib64JcarAnUxWiyg7nzQQDbTB_TQZo5ajEaJH3bjqUhy943pMCWltYm673hVXI7aPJfY95coH_eNkxELXzwyQ2Nqy0P5lBVQ6seamY-GGfP0D/s1499/Artboard%201%20copy%2013.png" alt="شعار العميل 13">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgtLyLJ3ctZQEsWO8X-bosA-c8xr0bGVGIRJBLvDqG_7gN51r41JxcvXMDr0pf39AdvRw7Xed3_u4dbtJBoMRwyjmkTXyKK6K_ayIksm0oxFmTGLecaLqBaQ5osfIsuLc5EJ-Sf9Hqibn7QCSRG33c0rp7ZE0L5A0DGNZbuyUgdlhI7ke2kjXPOdcNAcosV/s1264/Artboard%2017%20copy.png" alt="شعار العميل 14">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiXjtFIt7BkKucSSqD_s48AJ9fpKgvDuChZjNTSgscUiy5nLpZY4Euzd5IUqZjCdI4qfwOLk4LFXn-gzb5Obf58vQ_30YlESISJCP3o8hSegLdrl_bTh5kenlRc-Msq31V1e1F3RKMAKsn7U0nTAH3UyTLrez-M6SQaXEH4knvxVFn2eB26s9wWlQ6anHi1/s1265/Artboard%2017%20copy%205.png" alt="شعار العميل 15">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgH6O14CguefADxXTW7NKRlscbiCuOmPHuYRGTx0MDzTvFxNZW9jOnEcHgSrbN0mNeY_CvWX-kNZV0ZdXmEe7Cc36io2qYMjTyqlcgxMXGmbLlYEcr1h8uu-xWZqyshHUkkm4bsCWlnYihsGSoiS-AGtdzHKhOHah14PAcvJc_Dw249yUlcae1GUs7wq74x/s1264/Artboard%2017%20copy%204.png" alt="شعار العميل 16">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgZUrMNpECwSB4YiZHj-P9ZBgDgCUVY9IZG-ytUSxgychmmfdPl-WCrRqt2X7Cvm_Tm1Mgb77uQKq2YxVKbcFwcTTNyGb9qyMQKQ2JDR4W8TF5ht08n7ekDaNWLeiKiG7pHwVklDkqkwYuw5oeYLFCrB2ar66-kXAIvroW3ic5XQ1M1_R4lYx6corfzMzMJ/s1265/Artboard%2017%20copy%203.png" alt="شعار العميل 17">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjTZ1rzAo5fS1FgPWld6gl7kQ4LUeU5SZF3K53oGgTI3iIUAcFm_yNnIFwwgFUnIuzYKLOU8WDTRCYLBFQI5gXRVavHeFWKtSHsTLzV8ucs3x3FxPlZq7ywhx6qIOFfdKFPSlbK-1p1175aM3J2C-jUptbGKF9ZzTCoS9utRVTpFFwXEJWDL63Mv14coMVd/s1265/Artboard%2017%20copy%202.png" alt="شعار العميل 18">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgF4UxLCBF1BDi1hP_Pk42Wd780dUTgea6iuykVrcLMoCR7oimdjTJmPfThmigYHRhaXbiZJ1BusSqM-EiD5TyMuih9a-m9i_isyZP50cT7uNW4bm5M14nwtZg0nAJQZK8Eed3sP5vT_DJQFzAO6zmkpGoa6w8dsFUkyGVFYXctoFqzOmQXTSzwR4xBup3_/s1265/Artboard%2017%20copy%2013.png" alt="شعار العميل 19">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgB-FLCwW2aqowrepewc6Z0BxYXdH_0jCCoIq-nCAtWbQywsbOv1Xhj49WTfp6M0sSIOEzQ3JRCX1aMtUoNLNIxigk3WFOxKVABz2IlwqumHiyJuwzK6y1cviJwQSkgXuHUQQxJqYpl-falimGz1s-38o2INWetB_fTI_f4rtsy7udajVWDtCqQlmZbM0Wo/s1265/Artboard%2017%20copy%2012.png" alt="شعار العميل 20">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhRR92i3KIhktJHaWtlPSKQxDXNlo-C4AnAJxgRP7sSERA1aBlpFjSoIjVQe6YJ7D_c8xGdwyo8S1XNc1LHSAXTtqSjSyin2hQiq7-WNae6l8Br2-kyVp2NpypYBtVI9DgKjbAocgyovYWCvtS8tQbekcgKSUkqk7g0JCKRcpHFRgzt7xc9ISzJe4Jjk8yz/s1265/Artboard%2017%20copy%2011.png" alt="شعار العميل 21">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhHELFNl0juvwnQN_h5wW0OOi4HDLMVMTU_-mGew40NzA6p02xtsSB5OpSCnyWcFZtwNgwO9nQ9rWtAc0HaJha_Ccwo0b7Hq4JFt-Mfnlqdm3-vZwINlTRV5-68rp_TkwnMFLbCEnKJEQ_Xdq-ypAWLxABhZR73pQvb4EOZv1v0lmKUAsVNEe2gZCIBZU7C/s1265/Artboard%2017%20copy%2010.png" alt="شعار العميل 22">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3Hw8T3AH3Vtrt8Yxm-dxrj3dQb04F8c0ZBmyq_wTVNqJXwsboPFLrLTmTFOuSuQWpJdvKn5oNNuAFfdHDNKiVUcRz8z6aRxVXQnFrsoGidTgZYDMAGd_M6itUsurDsXE1H_HFN85Je-tHaT_M81F3U2-mJz6uSU4ij7wjo5CuhSX19Fhp08YtpVlUBCMB/s1264/Artboard%2017%20copy%206.png" alt="شعار العميل 23">
-                </div>
-            </div>
-        </section>
-
-
-        <hr class="w-full border-t border-gray-200 my-12">
-
-        <!-- Shop Location Section - English -->
-        <section class="map-section w-full">
-            <div class="container">
-                <h2 class="section-heading mb-4">Our Shop Location</h2>
-                <p class="section-subheading">Find us on the map.</p>
-                <div class="map-container">
-                    <iframe
-                        src="https://maps.google.com/maps?q=36.296006049345785,44.018319059200046&z=15&output=embed"
-                        width="600"
-                        height="450"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-            </div>
-        </section>
-
-        <!-- Get in Touch Section (Main page) - English -->
-        <section id="main-contact-en" class="w-full py-16 px-4 bg-gray-50">
-            <div class="container text-center">
-                <h2 class="section-heading mb-4">Get in Touch</h2>
-                <p class="section-subheading">For any inquiries or requests, feel free to contact us.</p>
-                <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
-                    <form onsubmit="sendContactEmail(event, 'en')" class="flex flex-col space-y-4">
-                        <input type="text" id="name-en-main" placeholder="Your Name" class="p-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500" required>
-                        <input type="tel" id="phone-en-main" placeholder="Phone Number" class="p-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500" required>
-                        <textarea id="description-en-main" placeholder="Describe Your Request" rows="5" class="p-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500" required></textarea>
-                        <button type="submit" class="bg-red-600 text-white p-3 rounded-md font-semibold hover:bg-red-700 transition">Send</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <hr class="w-full border-t border-gray-200 my-12">
-        
-        <!-- Footer Section - English (قسم التذييل - الإنجليزية) -->
-        <footer class="w-full bg-gray-800 text-white py-12 mt-auto">
-            <div class="container grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6DQ8wsfNFwfoVN7B-MEyetqDTMsV6xk1gKuwJn85bDl2kur5f3ZVuMgfQekbE8arTQu_xQSsuoVmFcOUyjaFG4RVwOvG0_kqAEb-V3MgYRzxjo7c-8mE1zqjYrN7gpdmhdDtLQ8uq2Uk_WAa1imn-XtBkTZlXAhhZJZ4Ii2qJEWoFs0jgDdXDNv31e2J2/s320/rix%20logo.png" alt="Rix Printing Logo" class="footer-logo">
-                    <p class="text-sm text-gray-400 mb-4">We offer high-quality printing and design services.</p>
-                    <a href="https://www.instagram.com/rix_printing/" target="_blank" class="social-icon-box">
-                        <i class="fab fa-instagram social-icon"></i>
-                        <span>See Our Work on Instagram</span>
-                    </a>
-                </div>
-                <div>
-                    <h5 class="footer-heading">Information</h5>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-red-300">About Us</a></li>
-                        <li><a href="#" class="hover:text-red-300">Services</a></li>
-                        <li><a href="#" class="hover:text-red-300">Pricing</a></li>
-                        <li><a href="#" class="hover:text-red-300">FAQs</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="footer-heading">Contact Us</h5>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="tel:+9647506151617" class="hover:text-red-300">07506151617</a></li>
-                        <li><a href="tel:+9647506121314" class="hover:text-red-300">07506121314</a></li>
-                        <li><a href="mailto:info@rixprinting.com" class="hover:text-red-300">info@rixprinting.com</a></li>
-                        <li><span class="text-gray-400">Bahrka - 150m overpass, Erbil, Iraq</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="text-center text-sm text-gray-500 mt-8 border-t border-gray-700 pt-6">
-                <p>&copy; 2025 Rix Printing. All rights reserved.</p>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Custom JavaScript Link -->
+    <!-- Custom JavaScript -->
     <script src="script.js"></script>
-
-<!-- 🌐 Floating Language Button -->
-<div id="language-button" class="language-float">
-  🌐 <span id="current-language-name">کوردی</span>
-  <div id="language-dropdown" class="language-dropdown hidden">
-    <button onclick="setLanguage('ckb')">🇮🇶 کوردی</button>
-    <button onclick="setLanguage('ar')">🇸🇦 عربي</button>
-    <button onclick="setLanguage('en')">🇬🇧 English</button>
-  </div>
-</div>
-
 </body>
 </html>
