@@ -1049,24 +1049,28 @@
 
       </div> <!-- end designs-grid -->
 
-      <!-- Toggle button -->
-      <div class="text-center mt-8">
-        <button id="designs-toggle"
-                class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 bg-white shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 kurdish-text"
-                aria-expanded="false"
-                aria-controls="designs-grid">
-      </div>
-    </div> <!-- end wrapper -->
-  </div>
-</section>
+  <!-- Toggle button -->
+<div class="text-center mt-8">
+  <button id="designs-toggle"
+          class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 bg-white shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 kurdish-text"
+          aria-expanded="false"
+          aria-controls="designs-grid"
+          aria-label="عرض المزيد / عرض أقل">
+    <!-- السهم الظاهر -->
+    <span id="designs-toggle-label" aria-hidden="true">⇩</span>
+    <!-- نص مخفي للقُرّاء الشاشة -->
+    <span id="designs-toggle-sr" class="sr-only">عرض المزيد</span>
+  </button>
+</div>
 
-<!-- Script: Show more / Show less -->
+<!-- Script: Show more / Show less (arrow only) -->
 <script>
   (function () {
     const initialVisible = 4; // عدد العناصر الظاهرة بالبداية
     const grid = document.getElementById('designs-grid');
     const toggle = document.getElementById('designs-toggle');
     const label = document.getElementById('designs-toggle-label');
+    const sr = document.getElementById('designs-toggle-sr');
     if (!grid || !toggle) return;
 
     const items = Array.from(grid.querySelectorAll('.design-item'));
@@ -1085,6 +1089,10 @@
       }
     });
 
+    // ensure initial label state
+    label.textContent = '⇩';
+    sr.textContent = 'عرض المزيد';
+
     // Toggle handler
     toggle.addEventListener('click', function () {
       const expanded = this.getAttribute('aria-expanded') === 'true';
@@ -1096,7 +1104,8 @@
           }
         });
         this.setAttribute('aria-expanded', 'true');
-      label.textContent = '⇧';
+        label.textContent = '⇧';
+        sr.textContent = 'عرض أقل';
       } else {
         // hide extras
         items.forEach((it, idx) => {
@@ -1104,12 +1113,28 @@
         });
         this.setAttribute('aria-expanded', 'false');
         label.textContent = '⇩';
-          // keep ux nice: scroll button into view
+        sr.textContent = 'عرض المزيد';
+        // keep ux nice: scroll button into view
         this.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     });
   })();
 </script>
+
+<!-- Tailwind يحتوي على .sr-only؛ لو مش شغال تقدر تضيف الفallback ده -->
+<style>
+  .sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+</style>
 
 
     <!-- Partners Section -->
