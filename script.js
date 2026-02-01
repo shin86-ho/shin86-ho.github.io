@@ -158,7 +158,7 @@ const translations = {
         'partner-19-desc': 'شريك فعال',
         'partner-20': 'شركة پیرەمەگروون للطباعة',
         'partner-20-desc': 'عميل دائم',
-        'contact-title': 'پەیوەندی لەگەڵمان',
+        'contact-title': 'پەیوەندی',
         'contact-subtitle': 'ئامادەیین بۆ یارمەتی دانی براندەکەت',
         'contact-form-title': 'فۆرمی پەیوەندی',
         'contact-form-name': 'ناو',
