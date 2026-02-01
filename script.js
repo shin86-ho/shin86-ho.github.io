@@ -3,7 +3,6 @@
 // Language translations
 const translations = {
     ckb: {
-
         'mobile-nav-services': 'خزمەتگوزارییەکان',
         'mobile-nav-designs': 'دیزاین و بەرهەمە جیاوازەکان',
         'mobile-nav-about': 'دەربارەی ئێمە',
@@ -169,7 +168,6 @@ const translations = {
         'contact-info-title': 'زانیاری پەیوەندی',
         'view-map-btn': 'بینینی شوێن لەسەر نەخشە',
         'footer-desc': 'چاپخانەیەکی تایبەت بە چاپەمەنی گشتی لە هەرێمی کوردستان'
-
     },
     ar: {
         'mobile-nav-services': 'خدماتنا',
@@ -337,7 +335,6 @@ const translations = {
         'contact-info-title': 'معلومات الاتصال',
         'view-map-btn': 'عرض الموقع على الخريطة',
         'footer-desc': 'مطبعة متخصصة في الطباعة العامة في إقليم كردستان'
-
     },
     en: {
         'mobile-nav-services': 'Services',
