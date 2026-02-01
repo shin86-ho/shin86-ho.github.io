@@ -1048,92 +1048,102 @@
         </div>
 
       </div> <!-- end designs-grid -->
-
-  <!-- Toggle button -->
+<!-- Toggle button -->
 <div class="text-center mt-8">
   <button id="designs-toggle"
-          class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 bg-white shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 kurdish-text"
-          aria-expanded="false"
-          aria-controls="designs-grid"
-          aria-label="عرض المزيد / عرض أقل">
-    <!-- السهم الظاهر -->
-    <span id="designs-toggle-label" aria-hidden="true">⇩</span>
-    <!-- نص مخفي للقُرّاء الشاشة -->
-    <span id="designs-toggle-sr" class="sr-only">عرض المزيد</span>
+    class="group inline-flex items-center justify-center
+           w-14 h-14 rounded-full
+           border border-gray-300 bg-white shadow-sm
+           hover:shadow-lg hover:scale-105
+           transition-all duration-300
+           focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    aria-expanded="false"
+    aria-controls="designs-grid"
+    aria-label="عرض المزيد / عرض أقل">
+
+    <!-- Arrow SVG -->
+    <svg id="designs-toggle-label"
+      class="w-7 h-7 text-gray-700 transition-transform duration-300"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+
+    <!-- Screen reader text -->
+    <span class="sr-only">عرض المزيد</span>
   </button>
 </div>
 
-<!-- Script: Show more / Show less (arrow only) -->
+<!-- Script -->
 <script>
-  (function () {
-    const initialVisible = 4; // عدد العناصر الظاهرة بالبداية
-    const grid = document.getElementById('designs-grid');
-    const toggle = document.getElementById('designs-toggle');
-    const label = document.getElementById('designs-toggle-label');
-    const sr = document.getElementById('designs-toggle-sr');
-    if (!grid || !toggle) return;
+(function () {
+  const initialVisible = 4;
+  const grid = document.getElementById('designs-grid');
+  const toggle = document.getElementById('designs-toggle');
+  const label = document.getElementById('designs-toggle-label');
 
-    const items = Array.from(grid.querySelectorAll('.design-item'));
+  if (!grid || !toggle) return;
 
-    // If items <= initialVisible -> hide the button and return
-    if (items.length <= initialVisible) {
-      toggle.style.display = 'none';
-      return;
+  const items = Array.from(grid.querySelectorAll('.design-item'));
+
+  // لو العناصر قليلة أخفي الزر
+  if (items.length <= initialVisible) {
+    toggle.style.display = 'none';
+    return;
+  }
+
+  // إخفاء الزائد بالبداية
+  items.forEach((it, idx) => {
+    if (idx >= initialVisible) {
+      it.classList.add('hidden');
+      it.setAttribute('data-hidden-by-js', 'true');
     }
+  });
 
-    // Hide extras initially
-    items.forEach((it, idx) => {
-      if (idx >= initialVisible) {
-        it.classList.add('hidden');
-        it.setAttribute('data-hidden-by-js', 'true');
-      }
-    });
+  // Toggle
+  toggle.addEventListener('click', function () {
+    const expanded = this.getAttribute('aria-expanded') === 'true';
 
-    // ensure initial label state
-    label.textContent = '⇩';
-    sr.textContent = 'عرض المزيد';
-
-    // Toggle handler
-    toggle.addEventListener('click', function () {
-      const expanded = this.getAttribute('aria-expanded') === 'true';
-      if (!expanded) {
-        // show all
-        items.forEach(it => {
-          if (it.getAttribute('data-hidden-by-js') === 'true') {
-            it.classList.remove('hidden');
-          }
-        });
-        this.setAttribute('aria-expanded', 'true');
-        label.textContent = '⇧';
-        sr.textContent = 'عرض أقل';
-      } else {
-        // hide extras
-        items.forEach((it, idx) => {
-          if (idx >= initialVisible) it.classList.add('hidden');
-        });
-        this.setAttribute('aria-expanded', 'false');
-        label.textContent = '⇩';
-        sr.textContent = 'عرض المزيد';
-        // keep ux nice: scroll button into view
-        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    });
-  })();
+    if (!expanded) {
+      // إظهار الكل
+      items.forEach(it => {
+        if (it.getAttribute('data-hidden-by-js') === 'true') {
+          it.classList.remove('hidden');
+        }
+      });
+      this.setAttribute('aria-expanded', 'true');
+      label.classList.add('rotate-180'); // السهم لفوق
+    } else {
+      // إخفاء الزائد
+      items.forEach((it, idx) => {
+        if (idx >= initialVisible) it.classList.add('hidden');
+      });
+      this.setAttribute('aria-expanded', 'false');
+      label.classList.remove('rotate-180'); // السهم لتحت
+      this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+})();
 </script>
 
-<!-- Tailwind يحتوي على .sr-only؛ لو مش شغال تقدر تضيف الفallback ده -->
+<!-- sr-only fallback (لو Tailwind مش محمل) -->
 <style>
-  .sr-only {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
-  }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 </style>
 
 
