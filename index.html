@@ -1055,11 +1055,7 @@
                 class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 bg-white shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 kurdish-text"
                 aria-expanded="false"
                 aria-controls="designs-grid">
-label.innerHTML = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <polyline points="6 9 12 15 18 9"></polyline>
-  </svg>
-`;        </button>
+      label.textContent = '⇩';
       </div>
     </div> <!-- end wrapper -->
   </div>
@@ -1101,15 +1097,15 @@ label.innerHTML = `
           }
         });
         this.setAttribute('aria-expanded', 'true');
-        label.textContent = 'عرض أقل';
+      label.textContent = '⇧';
       } else {
         // hide extras
         items.forEach((it, idx) => {
           if (idx >= initialVisible) it.classList.add('hidden');
         });
         this.setAttribute('aria-expanded', 'false');
-        label.textContent = 'عرض المزيد';
-        // keep ux nice: scroll button into view
+        label.textContent = '⇩';
+          // keep ux nice: scroll button into view
         this.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     });
