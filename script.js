@@ -3,6 +3,7 @@
 // Language translations
 const translations = {
     ckb: {
+
         'mobile-nav-services': 'خزمەتگوزارییەکان',
         'mobile-nav-designs': 'دیزاین و بەرهەمە جیاوازەکان',
         'mobile-nav-about': 'دەربارەی ئێمە',
@@ -168,6 +169,8 @@ const translations = {
         'contact-info-title': 'زانیاری پەیوەندی',
         'view-map-btn': 'بینینی شوێن لەسەر نەخشە',
         'footer-desc': 'چاپخانەیەکی تایبەت بە چاپەمەنی گشتی لە هەرێمی کوردستان'
+        'designs-toggle-label': 'زياد بكه'
+
     },
     ar: {
         'mobile-nav-services': 'خدماتنا',
@@ -335,6 +338,8 @@ const translations = {
         'contact-info-title': 'معلومات الاتصال',
         'view-map-btn': 'عرض الموقع على الخريطة',
         'footer-desc': 'مطبعة متخصصة في الطباعة العامة في إقليم كردستان'
+        'designs-toggle-label': 'عرض المزيد'
+
     },
     en: {
         'mobile-nav-services': 'Services',
@@ -502,6 +507,7 @@ const translations = {
         'contact-info-title': 'Contact Information',
         'view-map-btn': 'View Location on Map',
         'footer-desc': 'A printing press specializing in general printing in Kurdistan Region'
+        'designs-toggle-label': 'Show More'
     }
 };
 
